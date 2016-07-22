@@ -11,11 +11,21 @@ import SpriteKit
 class MSReferenceNode: SKReferenceNode {
     
     /* Avatar node connection */
-    var avatar: SKSpriteNode!
+    var NodeTypeColor1: SKSpriteNode!
+    var NodeTypeColor2: SKSpriteNode!
+    var NodeTypeColor3: SKSpriteNode!
+    var NodeTypeColor4: SKSpriteNode!
+    var NodeTypeColor5: SKSpriteNode!
+    
     
     override func didLoadReferenceNode(node: SKNode?) {
         
         /* Set reference to avatar node */
-        avatar = childNodeWithName("//avatar") as! SKSpriteNode
+        NodeTypeColor1 = childNodeWithName("//NodeTypeColor1") as! SKSpriteNode
+        NodeTypeColor2 = childNodeWithName("//NodeTypeColor2") as! SKSpriteNode
+        NodeTypeColor3 = childNodeWithName("//NodeTypeColor3") as! SKSpriteNode
+        NodeTypeColor4 = childNodeWithName("//NodeTypeColor4") as! SKSpriteNode
+        NodeTypeColor5 = childNodeWithName("//NodeTypeColor5") as! SKSpriteNode
     }
+
 }
