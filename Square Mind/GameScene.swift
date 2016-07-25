@@ -25,8 +25,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let scrollSpeed: CGFloat = 170
     var obstacleLayer: SKNode!
     let fixedDelta: CFTimeInterval = 1.0/60.0
-    var colorState: SKColor = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
-    var buttonRestart: MSButtonNode!
+  //  var colorState: SKColor = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
+    //var buttonRestart: MSButtonNode!
     var spawnTimer: CFTimeInterval = 0
     var spawnTimerFixed: CFTimeInterval = 7.0
     var colortype1: SKNode!
@@ -36,7 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var incorrectColor1: SKSpriteNode!
     var incorrectColor2: SKSpriteNode!
     var lives: Int = 3
-    var score: Int = 0
+    var scoreLabel: SKLabelNode!
+    var score: Int =  0
     
     //how do I not make it a stored compound
     var gameState: GameSceneState = .Active
@@ -61,10 +62,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          */
         /* Show restart button */
         //        buttonRestart.state = .MSButtonNodeStateActive
+        
+       
     }
     
-    
-    
+        
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
@@ -77,18 +79,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let location  = touch.locationInNode(self)
             var node = self.nodeAtPoint(location)
             //var node2 = SKSpriteNode(imageNamed: node.name!)
+            print(node.name)
             
             if node.name == "wrong"  {
                 // and maby tap occured
                 lives -= 1
-                print("life lost.")
+                print("You now have \(lives) lives.")
                 
-            }
-            if node.name == "correct" {
+            } else if node.name == "correctblock" {
                 score += 1
-                set correct.z.position
-                
-                print("yay")
+                scoreLabel.text = String("\(score)")
+
+                node.zPosition = -30
+                print("Now the score is:\(score)")
             }
             
         }
@@ -129,7 +132,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         createNewObstical(1200)
         
-        colorState = colors[0]!
+        //colorState = colors[0]!
         
         /*
         
@@ -163,7 +166,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         /* Ensure correct aspect mode */
-        //scene.scaleMode = .AspectFill
+        //scene.scaleMode = .AspectFillscoreLabel
+        // somthing here is wrong
+        scoreLabel = self.childNodeWithName("scoreLabel") as! SKLabelNode
+        scoreLabel.text = String("\(score)")
         
         
     }
@@ -199,54 +205,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let colorOrder = Int(arc4random_uniform(4))
         if colorOrder == 0 {
             newObstacle.NodeTypeColor1.color = colors[0]!
-            newObstacle.NodeTypeColor1.name = "correct"
+            newObstacle.NodeTypeColor1.name = "correctblock"
             newObstacle.NodeTypeColor2.color = colors[1]!
-            newObstacle.NodeTypeColor2.name = "correct"
+            newObstacle.NodeTypeColor2.name = "correctblock"
             newObstacle.NodeTypeColor3.color = colors[2]!
-            newObstacle.NodeTypeColor3.name = "correct"
+            newObstacle.NodeTypeColor3.name = "correctblock"
             newObstacle.NodeTypeColor4.color = colors[3]!
             newObstacle.NodeTypeColor4.name = "wrong"
             newObstacle.NodeTypeColor5.color = colors[4]!
             newObstacle.NodeTypeColor5.name = "wrong"
         } else if colorOrder == 1 {
             newObstacle.NodeTypeColor1.color = colors[1]!
-            newObstacle.NodeTypeColor1.name = "correct"
+            newObstacle.NodeTypeColor1.name = "correctblock"
             newObstacle.NodeTypeColor2.color = colors[2]!
-            newObstacle.NodeTypeColor2.name = "correct"
+            newObstacle.NodeTypeColor2.name = "correctblock"
             newObstacle.NodeTypeColor3.color = colors[4]!
             newObstacle.NodeTypeColor3.name = "wrong"
             newObstacle.NodeTypeColor4.color = colors[0]!
-            newObstacle.NodeTypeColor4.name = "correct"
+            newObstacle.NodeTypeColor4.name = "correctblock"
             newObstacle.NodeTypeColor5.color = colors[3]!
             newObstacle.NodeTypeColor5.name = "wrong"
         } else if colorOrder == 2 {
             newObstacle.NodeTypeColor1.color = colors[2]!
-            newObstacle.NodeTypeColor1.name = "correct"
+            newObstacle.NodeTypeColor1.name = "correctblock"
             newObstacle.NodeTypeColor2.color = colors[3]!
             newObstacle.NodeTypeColor2.name = "wrong"
             newObstacle.NodeTypeColor3.color = colors[0]!
-            newObstacle.NodeTypeColor3.name = "correct"
+            newObstacle.NodeTypeColor3.name = "correctblock"
             newObstacle.NodeTypeColor4.color = colors[4]!
             newObstacle.NodeTypeColor4.name = "wrong"
             newObstacle.NodeTypeColor5.color = colors[1]!
-            newObstacle.NodeTypeColor5.name = "correct"
+            newObstacle.NodeTypeColor5.name = "correctblock"
 
         } else if colorOrder == 3 {
             newObstacle.NodeTypeColor1.color = colors[4]!
             newObstacle.NodeTypeColor1.name = "wrong"
             newObstacle.NodeTypeColor2.color = colors[0]!
-            newObstacle.NodeTypeColor2.name = "correct"
+            newObstacle.NodeTypeColor2.name = "correctblock"
             newObstacle.NodeTypeColor3.color = colors[3]!
             newObstacle.NodeTypeColor3.name = "wrong"
             newObstacle.NodeTypeColor4.color = colors[1]!
-            newObstacle.NodeTypeColor4.name = "correct"
+            newObstacle.NodeTypeColor4.name = "correctblock"
             newObstacle.NodeTypeColor5.color = colors[2]!
-            newObstacle.NodeTypeColor5.name = "correct"
+            newObstacle.NodeTypeColor5.name = "correctblock"
 
         }
         
         /* Create a new obstacle reference object using our obstacle resource */
-        let resourcePath = NSBundle.mainBundle().pathForResource("Obstacle", ofType: "sks")
+       // let resourcePath = NSBundle.mainBundle().pathForResource("Obstacle", ofType: "sks")
         
         
         /* Generate new obstacle position, start just outside screen and with a random y value */
