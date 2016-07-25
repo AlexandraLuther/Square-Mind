@@ -28,6 +28,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var colorState: SKColor = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
     var buttonRestart: MSButtonNode!
     var spawnTimer: CFTimeInterval = 0
+    var spawnTimerFixed: CFTimeInterval = 7.0
     var colortype1: SKNode!
     var correctColor1: SKSpriteNode!
     var correctColor2: SKSpriteNode!
@@ -35,6 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var incorrectColor1: SKSpriteNode!
     var incorrectColor2: SKSpriteNode!
     var lives: Int = 3
+    var score: Int = 0
     
     //how do I not make it a stored compound
     var gameState: GameSceneState = .Active
@@ -68,7 +70,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         /* Disable touch if game state is not active */
         if gameState != .Active { return }
+        
+        for touch in touches {
+            
+            /* Grab position of touch relative to the grid */
+            let location  = touch.locationInNode(self)
+            var node = self.nodeAtPoint(location)
+            //var node2 = SKSpriteNode(imageNamed: node.name!)
+            
+            if node.name == "wrong"  {
+                // and maby tap occured
+                lives -= 1
+                print("life lost.")
+                
+            }
+            if node.name == "correct" {
+                score += 1
+                set correct.z.position
+                
+                print("yay")
+            }
+            
+        }
+        
+        
+        
         /* Reset touch timer */
+        
         
         
     }
@@ -80,7 +108,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         obstacleLayer = self.childNodeWithName("obstacleLayer")
         //scrollLayer = SKNode()
         
-        //buttonRestart = self.childNodeWithName("buttonRestart") as! MSButtonNode
+        /*buttonRestart = self.childNodeWithName("buttonRestart") as! MSButtonNode
+ */
         /* Setup restart button selection handler */
         
         
@@ -98,11 +127,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         incorrectColor1.color = colors[3]!
         incorrectColor2.color = colors[4]!
         
-        createNewObstical()
+        createNewObstical(1200)
         
+        colorState = colors[0]!
         
+        /*
         
-        /* buttonRestart.selectedHandler = {
+         buttonRestart.selectedHandler = {
          
          print("restart tapped!")
          
@@ -122,7 +153,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          
          
          self.buttonRestart.state = .MSButtonNodeStateHidden
-         }*/
+         }
+        */
         // play = self.childNodeWithName("buttonRestart") as! MSButtonNode
         
         // here
@@ -136,7 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    func createNewObstical() {
+    func createNewObstical(distanceFromLast: CGFloat) {
         var newObstacle:MSReferenceNode!
         
         let randomScene = Int(arc4random_uniform(4))
@@ -167,35 +199,58 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let colorOrder = Int(arc4random_uniform(4))
         if colorOrder == 0 {
             newObstacle.NodeTypeColor1.color = colors[0]!
+            newObstacle.NodeTypeColor1.name = "correct"
             newObstacle.NodeTypeColor2.color = colors[1]!
+            newObstacle.NodeTypeColor2.name = "correct"
             newObstacle.NodeTypeColor3.color = colors[2]!
+            newObstacle.NodeTypeColor3.name = "correct"
             newObstacle.NodeTypeColor4.color = colors[3]!
+            newObstacle.NodeTypeColor4.name = "wrong"
             newObstacle.NodeTypeColor5.color = colors[4]!
+            newObstacle.NodeTypeColor5.name = "wrong"
         } else if colorOrder == 1 {
             newObstacle.NodeTypeColor1.color = colors[1]!
+            newObstacle.NodeTypeColor1.name = "correct"
             newObstacle.NodeTypeColor2.color = colors[2]!
+            newObstacle.NodeTypeColor2.name = "correct"
             newObstacle.NodeTypeColor3.color = colors[4]!
+            newObstacle.NodeTypeColor3.name = "wrong"
             newObstacle.NodeTypeColor4.color = colors[0]!
+            newObstacle.NodeTypeColor4.name = "correct"
             newObstacle.NodeTypeColor5.color = colors[3]!
+            newObstacle.NodeTypeColor5.name = "wrong"
         } else if colorOrder == 2 {
             newObstacle.NodeTypeColor1.color = colors[2]!
+            newObstacle.NodeTypeColor1.name = "correct"
             newObstacle.NodeTypeColor2.color = colors[3]!
+            newObstacle.NodeTypeColor2.name = "wrong"
             newObstacle.NodeTypeColor3.color = colors[0]!
+            newObstacle.NodeTypeColor3.name = "correct"
             newObstacle.NodeTypeColor4.color = colors[4]!
+            newObstacle.NodeTypeColor4.name = "wrong"
             newObstacle.NodeTypeColor5.color = colors[1]!
+            newObstacle.NodeTypeColor5.name = "correct"
+
         } else if colorOrder == 3 {
             newObstacle.NodeTypeColor1.color = colors[4]!
+            newObstacle.NodeTypeColor1.name = "wrong"
             newObstacle.NodeTypeColor2.color = colors[0]!
+            newObstacle.NodeTypeColor2.name = "correct"
             newObstacle.NodeTypeColor3.color = colors[3]!
+            newObstacle.NodeTypeColor3.name = "wrong"
             newObstacle.NodeTypeColor4.color = colors[1]!
+            newObstacle.NodeTypeColor4.name = "correct"
             newObstacle.NodeTypeColor5.color = colors[2]!
+            newObstacle.NodeTypeColor5.name = "correct"
+
         }
+        
         /* Create a new obstacle reference object using our obstacle resource */
         let resourcePath = NSBundle.mainBundle().pathForResource("Obstacle", ofType: "sks")
         
         
         /* Generate new obstacle position, start just outside screen and with a random y value */
-        let Position = CGPointMake(360, 0)
+        let Position = CGPointMake(distanceFromLast, 0)
         
         /* Convert new node position back to obstacle layer space */
         newObstacle.position = self.convertPoint(Position, toNode: obstacleLayer)
@@ -214,12 +269,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
             
             /* Check if obstacle has left the scene */
-            if spawnTimer >= 2.4 /*change to timer*/{
+            if spawnTimer >= spawnTimerFixed /*change to timer*/{
                 
-                createNewObstical()
+                createNewObstical(360)
                 spawnTimer = 0
+                spawnTimerFixed = 2.4
             }
             /* Remove obstacle node from obstacle layer */
+            
             if obstaclePosition.x <= -360 {
                 obstacle.removeFromParent()
             }
@@ -242,11 +299,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         updateObstacles()
         //timer.update()
         /* Process world scrolling */
-        if self.colorState == colors[4] || self.colorState == colors[3] {
-            
-            lives - 1 = lives
-            
-        }
+        
+      
         spawnTimer += fixedDelta
     }
     
@@ -269,8 +323,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if colorOrder == 2 {
             colors[0] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
             colors[1] = SKColor(red: 255/255, green: 255/255, blue: 210/255, alpha: 1.0)
-            colors[2] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
-            colors[3] = SKColor(red: 255/255, green: 225/255, blue: 196/255, alpha: 1.0)
+            colors[2] = SKColor(red: 255/255, green: 225/255, blue: 196/255, alpha: 1.0)
+            colors[3] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
             colors[4] = SKColor(red: 252/255, green:186/255, blue: 211/255, alpha: 1.0)
         } else  {
             colors[0] = SKColor(red: 255/255, green: 255/255, blue: 210/255, alpha: 1.0)
