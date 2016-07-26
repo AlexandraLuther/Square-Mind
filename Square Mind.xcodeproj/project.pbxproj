@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B81353B61D480B030004CFA2 /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B81353B51D480B030004CFA2 /* MainScene.sks */; };
+		B81353B81D480EDA0004CFA2 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81353B71D480EDA0004CFA2 /* MainScene.swift */; };
 		B81981E01D427C9900A93D1D /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81981D41D427C9900A93D1D /* CGFloat+Extensions.swift */; };
 		B81981E11D427C9900A93D1D /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81981D51D427C9900A93D1D /* CGPoint+Extensions.swift */; };
 		B81981E21D427C9900A93D1D /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81981D61D427C9900A93D1D /* CGVector+Extensions.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B81353B51D480B030004CFA2 /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainScene.sks; sourceTree = "<group>"; };
+		B81353B71D480EDA0004CFA2 /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		B81981D41D427C9900A93D1D /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		B81981D51D427C9900A93D1D /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
 		B81981D61D427C9900A93D1D /* CGVector+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGVector+Extensions.swift"; sourceTree = "<group>"; };
@@ -129,7 +133,9 @@
 				B81981D31D427C9900A93D1D /* SKTUtils */,
 				B8B077531D35B802009AB041 /* AppDelegate.swift */,
 				B8B077551D35B802009AB041 /* GameScene.sks */,
+				B81353B51D480B030004CFA2 /* MainScene.sks */,
 				B8B077571D35B802009AB041 /* GameScene.swift */,
+				B81353B71D480EDA0004CFA2 /* MainScene.swift */,
 				B81DE4561D412E2300389329 /* SceneType1.sks */,
 				B81DE4581D412E4900389329 /* SceneType2.sks */,
 				B81DE45A1D412E9400389329 /* SceneType3.sks */,
@@ -207,6 +213,7 @@
 			files = (
 				B8B077561D35B802009AB041 /* GameScene.sks in Resources */,
 				B81DE45F1D412ED800389329 /* SceneType5.sks in Resources */,
+				B81353B61D480B030004CFA2 /* MainScene.sks in Resources */,
 				B81DE45D1D412EAB00389329 /* SceneType4.sks in Resources */,
 				B81DE4591D412E4900389329 /* SceneType2.sks in Resources */,
 				B81DE45B1D412E9400389329 /* SceneType3.sks in Resources */,
@@ -233,6 +240,7 @@
 				B8B0775A1D35B802009AB041 /* GameViewController.swift in Sources */,
 				B81981E81D427C9900A93D1D /* SKTAudio.swift in Sources */,
 				B8B077541D35B802009AB041 /* AppDelegate.swift in Sources */,
+				B81353B81D480EDA0004CFA2 /* MainScene.swift in Sources */,
 				B81981E71D427C9900A93D1D /* SKNode+Extensions.swift in Sources */,
 				B81981E41D427C9900A93D1D /* SKAction+Extensions.swift in Sources */,
 				B81981E51D427C9900A93D1D /* SKAction+SpecialEffects.swift in Sources */,
