@@ -16,11 +16,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     //speed of scrool
-    let scrollSpeed: CGFloat = 170
+    var scrollSpeed: CGFloat = 170
     var obstacleLayer: SKNode!
     let fixedDelta: CFTimeInterval = 1.0/60.0
-  //  var colorState: SKColor = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
-    //var buttonRestart: MSButtonNode!
+    // attempt to implement restar button ///
+    var buttonRestart: MSButtonNode!
     var spawnTimer: CFTimeInterval = 0
     var spawnTimerFixed: CFTimeInterval = 7.0
     var colortype1: SKNode!
@@ -58,12 +58,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          hero.removeAllActions()
          */
         /* Show restart button */
-        //        buttonRestart.state = .MSButtonNodeStateActive
+        buttonRestart.state = .MSButtonNodeStateActive
         
-       
+        
     }
     
-        
+    
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
@@ -101,14 +101,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         lastLife = self.childNodeWithName("lastLife")
         if lives == 3 {
         } else if lives == 2 {
-        firstLife.hidden = true
+            firstLife.hidden = true
         } else if lives == 1 {
-        secondLife.hidden = true
-        firstLife.zPosition = -10
+            secondLife.hidden = true
+            firstLife.zPosition = -10
         } else {
-        lastLife.zPosition = -10
-        secondLife.zPosition = -10
-        firstLife.zPosition = -10
+            // make the game restart
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = GameScene(fileNamed:"GameScene") as GameScene!
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+            
+        }
+    }
+    func increaseSpeed() {
+        if score <= 10 {
+            scrollSpeed = 170
+        } else if score <= 25{
+            scrollSpeed = 210
+        }else if score <= 50{
+            scrollSpeed = 240
+        }else if score <= 75 {
+            scrollSpeed = 270
+        } else if score <= 100 {
+            scrollSpeed = 300
+        } else if score <= 150 {
+            scrollSpeed = 330
+        } else {
+            scrollSpeed = 360
         }
     }
     
@@ -119,8 +146,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         obstacleLayer = self.childNodeWithName("obstacleLayer")
         //scrollLayer = SKNode()
         
-        /*buttonRestart = self.childNodeWithName("buttonRestart") as! MSButtonNode
- */
+        buttonRestart = self.childNodeWithName("buttonRestart") as! MSButtonNode
+        
+        
         /* Setup restart button selection handler */
         
         
@@ -142,31 +170,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //colorState = colors[0]!
         
-        /*
         
-         buttonRestart.selectedHandler = {
-         
-         print("restart tapped!")
-         
-         /* Grab reference to our SpriteKit view */
-         let skView = self.view as SKView!
-         
-         /* Load Game scene */
-         let scene = GameScene(fileNamed:"GameScene") as GameScene!
-         
-         /* Ensure correct aspect mode */
-         scene.scaleMode = .AspectFill
-         
-         /* Restart game scene */
-         skView.presentScene(scene)
-         
-         
-         
-         
-         self.buttonRestart.state = .MSButtonNodeStateHidden
-         }
-        */
-        // play = self.childNodeWithName("buttonRestart") as! MSButtonNode
+        
+        buttonRestart.selectedHandler = {
+            
+            print("restart tapped!")
+            
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = GameScene(fileNamed:"GameScene") as GameScene!
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+            
+            
+            
+            
+            self.buttonRestart.state = .MSButtonNodeStateHidden
+        }
+        
+        let  play = self.childNodeWithName("buttonRestart") as! MSButtonNode
         
         // here
         /* Grab reference to our SpriteKit view */
@@ -244,7 +272,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             newObstacle.NodeTypeColor4.name = "wrong"
             newObstacle.NodeTypeColor5.color = colors[1]!
             newObstacle.NodeTypeColor5.name = "correctblock"
-
+            
         } else if colorOrder == 3 {
             newObstacle.NodeTypeColor1.color = colors[4]!
             newObstacle.NodeTypeColor1.name = "wrong"
@@ -256,7 +284,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             newObstacle.NodeTypeColor4.name = "correctblock"
             newObstacle.NodeTypeColor5.color = colors[2]!
             newObstacle.NodeTypeColor5.name = "correctblock"
-
+            
         }
         
         /* Create a new obstacle reference object using our obstacle resource */
@@ -286,7 +314,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 createNewObstical(360)
                 spawnTimer = 0
-                spawnTimerFixed = 2.4
+                if score <= 10 {
+                    spawnTimerFixed = 2.4
+                } else if score <= 25 {
+                    spawnTimerFixed = 1.92
+                } else if score <= 50 {
+                    spawnTimerFixed = 1.55
+                } else if score <= 75 {
+                    spawnTimerFixed = 1.35
+                } else if score <= 100 {
+                    spawnTimerFixed = 1.22
+                } else if score <= 150 {
+                    spawnTimerFixed = 1.17
+                } else {
+                    spawnTimerFixed = 1.15
+                }
+                
             }
             /* Remove obstacle node from obstacle layer */
             
@@ -304,16 +347,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for obstacle in obstacleLayer.children as! [MSReferenceNode] {
             let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
             if obstaclePosition.x < -350 {
-               // print(obstaclePosition)
+                // print(obstaclePosition)
                 if obstacle.NodeTypeColor1.name == "correctblock" || obstacle.NodeTypeColor2.name == "correctblock" || obstacle.NodeTypeColor3.name == "correctblock" || obstacle.NodeTypeColor4.name == "correctblock" || obstacle.NodeTypeColor5.name == "correctblock" {
                     
                     lives -= 1
-                     print("you lost a life now\(lives)")
+                    print("you lost a life now\(lives)")
                     obstacle.removeFromParent()
                 }
             }
         }
-       
+        
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -321,7 +364,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         /* Skip game update if game no longer active */
         if gameState != .Active { return }
         /* Called before each frame is rendered */
-       
+        increaseSpeed()
         obstacleLayer.position.x -= scrollSpeed * CGFloat(fixedDelta)
         mustTap()
         //timer.update()
@@ -329,7 +372,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         updateObstacles()
         lossOfLives()
-      
+        
         spawnTimer += fixedDelta
     }
     
@@ -364,6 +407,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
-
+    
 }
 
