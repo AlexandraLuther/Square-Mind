@@ -12,12 +12,6 @@ enum GameSceneState {
     case Active, GameOver
 }
 
-//enum Colors {
-//    case Colortype1, Colortype2, Colortype3, Colortype4, Colortype5
-//}
-
-
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
@@ -38,6 +32,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lives: Int = 3
     var scoreLabel: SKLabelNode!
     var score: Int =  0
+    var lastLife: SKNode!
+    var secondLife: SKNode!
+    var firstLife: SKNode!
     
     //how do I not make it a stored compound
     var gameState: GameSceneState = .Active
@@ -77,31 +74,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             /* Grab position of touch relative to the grid */
             let location  = touch.locationInNode(self)
-            var node = self.nodeAtPoint(location)
+            let node = self.nodeAtPoint(location)
             //var node2 = SKSpriteNode(imageNamed: node.name!)
             print(node.name)
             
             if node.name == "wrong"  {
                 // and maby tap occured
                 lives -= 1
+                
                 print("You now have \(lives) lives.")
                 
             } else if node.name == "correctblock" {
                 score += 1
                 scoreLabel.text = String("\(score)")
-
+                node.name = "tappedblock"
                 node.zPosition = -30
                 print("Now the score is:\(score)")
             }
             
         }
         
-        
-        
-        /* Reset touch timer */
-        
-        
-        
+    }
+    func lossOfLives(){
+        firstLife = self.childNodeWithName("firstLife")
+        secondLife = self.childNodeWithName("secondLife")
+        lastLife = self.childNodeWithName("lastLife")
+        if lives == 3 {
+        } else if lives == 2 {
+        firstLife.hidden = true
+        } else if lives == 1 {
+        secondLife.hidden = true
+        firstLife.zPosition = -10
+        } else {
+        lastLife.zPosition = -10
+        secondLife.zPosition = -10
+        firstLife.zPosition = -10
+        }
     }
     
     override func didMoveToView(view: SKView) {
@@ -252,7 +260,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         /* Create a new obstacle reference object using our obstacle resource */
-       // let resourcePath = NSBundle.mainBundle().pathForResource("Obstacle", ofType: "sks")
+        //let resourcePath = NSBundle.mainBundle().pathForResource("Obstacle", ofType: "sks")
         
         
         /* Generate new obstacle position, start just outside screen and with a random y value */
@@ -270,7 +278,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         /* Loop through obstacle layer nodes */
         for obstacle in obstacleLayer.children as! [SKReferenceNode] {
-            
             /* Get obstacle node position, convert node position to scene space */
             let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
             
@@ -293,19 +300,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
-    
+    func mustTap() {
+        for obstacle in obstacleLayer.children as! [MSReferenceNode] {
+            let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
+            if obstaclePosition.x < -350 {
+               // print(obstaclePosition)
+                if obstacle.NodeTypeColor1.name == "correctblock" || obstacle.NodeTypeColor2.name == "correctblock" || obstacle.NodeTypeColor3.name == "correctblock" || obstacle.NodeTypeColor4.name == "correctblock" || obstacle.NodeTypeColor5.name == "correctblock" {
+                    
+                    lives -= 1
+                     print("you lost a life now\(lives)")
+                    obstacle.removeFromParent()
+                }
+            }
+        }
+       
+    }
     
     override func update(currentTime: CFTimeInterval) {
-        
         
         /* Skip game update if game no longer active */
         if gameState != .Active { return }
         /* Called before each frame is rendered */
+       
         obstacleLayer.position.x -= scrollSpeed * CGFloat(fixedDelta)
-        updateObstacles()
+        mustTap()
         //timer.update()
         /* Process world scrolling */
         
+        updateObstacles()
+        lossOfLives()
       
         spawnTimer += fixedDelta
     }
