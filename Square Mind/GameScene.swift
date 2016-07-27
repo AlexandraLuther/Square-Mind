@@ -13,14 +13,17 @@ enum GameSceneState {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
-    
+    var homebutton: MSButtonNode!
+    var highscorelable: SKLabelNode!
+    var highscore: SKLabelNode!
+    var Finalscore: SKLabelNode!
+    var endOfGameButtonRestart: MSButtonNode!
     //speed of scrool
     var scrollSpeed: CGFloat = 170
     var obstacleLayer: SKNode!
     let fixedDelta: CFTimeInterval = 1.0/60.0
     // attempt to implement restar button ///
-    var buttonRestart: MSButtonNode!
+    var duringGameButtonRestart: MSButtonNode!
     var spawnTimer: CFTimeInterval = 0
     var spawnTimerFixed: CFTimeInterval = 7.0
     var colortype1: SKNode!
@@ -39,28 +42,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //how do I not make it a stored compound
     var gameState: GameSceneState = .Active
     
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBeginContact(/*contact: SKPhysicsContact*/) {
         /* Ensure only called while game running */
-        if gameState != .Active { return }
-        
-        /* Hero touches anything, game over */
-        
-        /* Change game state to game over */
-        gameState = .GameOver
-        
-        /* Stop any new angular velocity being applied
-         hero.physicsBody?.allowsRotation = false
-         
-         Reset angular velocity
-         hero.physicsBody?.angularVelocity = 0
-         
-         Stop hero flapping animation
-         hero.removeAllActions()
-         */
+        //if gameState != .Active { return }
+        homebutton.hidden = false
+        highscore.hidden = false
+        highscorelable.hidden = false
+        Finalscore.hidden = false
         /* Show restart button */
-        buttonRestart.state = .MSButtonNodeStateActive
-        
-        
+        duringGameButtonRestart.hidden = true
+        scoreLabel.position.x = 154
+        scoreLabel.position.y = 250
+        endOfGameButtonRestart.hidden = false
+        scrollSpeed = 0
     }
     
     
@@ -104,10 +98,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             firstLife.hidden = true
         } else if lives == 1 {
             secondLife.hidden = true
-            firstLife.zPosition = -10
+            firstLife.hidden = true
         } else {
+            lastLife.hidden = true
+            gameState = .GameOver
+            didBeginContact()
             // make the game restart
-            /* Grab reference to our SpriteKit view */
+            /* Grab reference to our SpriteKit view
             let skView = self.view as SKView!
             
             /* Load Game scene */
@@ -119,7 +116,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             /* Restart game scene */
             skView.presentScene(scene)
             
-        }
+        }*/
     }
     }
     func increaseSpeed() {
@@ -140,14 +137,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    // changebutton
+    func homeButtonSelected() {
+        homebutton.selectedHandler = {
+            
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = MainScene(fileNamed:"MainScene") as MainScene!
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Show debug */
+            skView.showsPhysics = true
+            skView.showsDrawCount = true
+            skView.showsFPS = true
+            
+            /* Start game scene */
+            skView.presentScene(scene)
+        }
+
+    }
+    
     override func didMoveToView(view: SKView) {
+        homebutton = self.childNodeWithName("homebutton") as! MSButtonNode
+        highscorelable = self.childNodeWithName("highscorelable") as! SKLabelNode
+        highscore = self.childNodeWithName("highscore") as! SKLabelNode
+        Finalscore = self.childNodeWithName("Finalscore")as! SKLabelNode
+        homebutton.hidden = true
+        highscore.hidden = true
+        highscorelable.hidden = true
+        Finalscore.hidden = true
         
         /* Set reference to scroll layer node */
         /* Set reference to obstacle layer node */
         obstacleLayer = self.childNodeWithName("obstacleLayer")
         //scrollLayer = SKNode()
-        
-        buttonRestart = self.childNodeWithName("buttonRestart") as! MSButtonNode
+        endOfGameButtonRestart = self.childNodeWithName("endOfGameButtonRestart") as! MSButtonNode
+        duringGameButtonRestart = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
         
         
         /* Setup restart button selection handler */
@@ -171,9 +200,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //colorState = colors[0]!
         
+        /* Setup restart button selection handler */
+        endOfGameButtonRestart.selectedHandler = {
+            
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = GameScene(fileNamed:"GameScene") as GameScene!
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+            
+        }
+        /* Hide restart button */
+        endOfGameButtonRestart.hidden = true
         
-        
-        buttonRestart.selectedHandler = {
+        duringGameButtonRestart.selectedHandler = {
             
             print("restart tapped!")
             
@@ -192,10 +238,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             
             
-            self.buttonRestart.state = .MSButtonNodeStateHidden
+            self.duringGameButtonRestart.state = .MSButtonNodeStateHidden
         }
         
-        let  play = self.childNodeWithName("buttonRestart") as! MSButtonNode
+        let  play = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
         
         // here
         /* Grab reference to our SpriteKit view */
@@ -361,7 +407,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(currentTime: CFTimeInterval) {
-        
+        homeButtonSelected()
         /* Skip game update if game no longer active */
         if gameState != .Active { return }
         /* Called before each frame is rendered */
