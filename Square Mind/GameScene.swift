@@ -75,6 +75,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if node.name == "wrong"  {
                 // and maby tap occured
                 lives -= 1
+                let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
+                self.runAction(faileffect)
                 
                 let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
                 let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
@@ -502,23 +504,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             colors[0] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
             colors[1] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
             colors[2] = SKColor(red: 252/255, green:186/255, blue: 211/255, alpha: 1.0)
-            colors[3] = SKColor(red: 255/255, green: 225/255, blue: 196/255, alpha: 1.0)
-            colors[4] = SKColor(red: 255/255, green: 255/255, blue: 210/255, alpha: 1.0)
+            colors[3] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
+            colors[4] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
         } else if colorOrder == 1 {
             colors[0] = SKColor(red: 252/255, green: 186/255, blue: 211/255, alpha: 1.0)
             colors[1] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
-            colors[2] = SKColor(red: 255/255, green: 255/255, blue: 210/255, alpha: 1.0)
+            colors[2] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
             colors[3] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
-            colors[4] = SKColor(red: 255/255, green: 225/255, blue: 196/255, alpha: 1.0)
+            colors[4] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
         } else if colorOrder == 2 {
             colors[0] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
-            colors[1] = SKColor(red: 255/255, green: 255/255, blue: 210/255, alpha: 1.0)
-            colors[2] = SKColor(red: 255/255, green: 225/255, blue: 196/255, alpha: 1.0)
+            colors[1] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
+            colors[2] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
             colors[3] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
             colors[4] = SKColor(red: 252/255, green:186/255, blue: 211/255, alpha: 1.0)
         } else  {
-            colors[0] = SKColor(red: 255/255, green: 255/255, blue: 210/255, alpha: 1.0)
-            colors[1] = SKColor(red: 255/255, green: 225/255, blue: 196/255, alpha: 1.0)
+            colors[0] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
+            colors[1] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
             colors[2] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
             colors[3] = SKColor(red: 252/255, green: 186/255, blue: 211/255, alpha: 1.0)
             colors[4] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
