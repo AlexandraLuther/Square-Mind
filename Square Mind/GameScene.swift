@@ -76,14 +76,57 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 // and maby tap occured
                 lives -= 1
                 
+                let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
+                let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
+                let wrongpt3 = SKEmitterNode(fileNamed: "wrongpt3")!
+                let wrongpt4 = SKEmitterNode(fileNamed: "wrongpt4")!
+                
+                /* location of border of wrong move */
+                wrongpt1.position.x = 20
+                wrongpt1.position.y = 10
+                wrongpt2.position.x = 20
+                wrongpt2.position.y = 10
+                wrongpt3.position.x = 290
+                wrongpt3.position.y = 100
+                wrongpt4.position.x = 150
+                wrongpt4.position.y = 470
+                
+                //partical.runAction(SKAction.removeFromParentAfterDelay(10))
+                /* Restrict total particles to reduce runtime of particle */
+                wrongpt1.numParticlesToEmit = 75
+                wrongpt2.numParticlesToEmit = 75
+                wrongpt4.numParticlesToEmit = 75
+                wrongpt3.numParticlesToEmit = 75
+                /* Add particles to scene */
+                addChild(wrongpt1)
+                addChild(wrongpt2)
+                addChild(wrongpt4)
+                addChild(wrongpt3)
+                
                 print("You now have \(lives) lives.")
                 
             } else if node.name == "correctblock" {
                 score += 1
+                /* Load our particle effect */
+                let partical = SKEmitterNode(fileNamed: "CorrectColor")!
+                
+                /* Convert node location (currently inside Level 1, to scene space) */
+                partical.position = convertPoint(location, fromNode: self)
+                print(partical.position)
+                print(location)
+                //partical.runAction(SKAction.removeFromParentAfterDelay(10))
+                /* Restrict total particles to reduce runtime of particle */
+                partical.numParticlesToEmit = 75
+                
+                /* Add particles to scene */
+                addChild(partical)
+
                 scoreLabel.text = String("\(score)")
                 node.name = "tappedblock"
                 node.zPosition = -30
                 print("Now the score is:\(score)")
+                
+               
             }
             
         }
@@ -397,7 +440,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 // print(obstaclePosition)
                 if obstacle.NodeTypeColor1.name == "correctblock" || obstacle.NodeTypeColor2.name == "correctblock" || obstacle.NodeTypeColor3.name == "correctblock" || obstacle.NodeTypeColor4.name == "correctblock" || obstacle.NodeTypeColor5.name == "correctblock" {
                     
+                    let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
+                    let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
+                    let wrongpt3 = SKEmitterNode(fileNamed: "wrongpt3")!
+                    let wrongpt4 = SKEmitterNode(fileNamed: "wrongpt4")!
+                    
+                    /* location of border of wrong move */
+                    wrongpt1.position.x = 20
+                    wrongpt1.position.y = 10
+                    wrongpt2.position.x = 20
+                    wrongpt2.position.y = 10
+                    wrongpt3.position.x = 290
+                    wrongpt3.position.y = 100
+                    wrongpt4.position.x = 150
+                    wrongpt4.position.y = 470
+                    
+                    //partical.runAction(SKAction.removeFromParentAfterDelay(10))
+                    /* Restrict total particles to reduce runtime of particle */
+                    wrongpt1.numParticlesToEmit = 75
+                    wrongpt2.numParticlesToEmit = 75
+                    wrongpt4.numParticlesToEmit = 75
+                    wrongpt3.numParticlesToEmit = 75
+                    /* Add particles to scene */
+                    addChild(wrongpt1)
+                    addChild(wrongpt2)
+                    addChild(wrongpt4)
+                    addChild(wrongpt3)
+
                     lives -= 1
+                    /* Play SFX */
                     print("you lost a life now\(lives)")
                     obstacle.removeFromParent()
                 }

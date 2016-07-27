@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Power_-_Restart.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "refresh-128.png",
       "scale" : "2x"
     },
     {

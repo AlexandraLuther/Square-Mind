@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8046D8A1D49368C0050C0FE /* CorrectColor.sks in Resources */ = {isa = PBXBuildFile; fileRef = B8046D881D49368C0050C0FE /* CorrectColor.sks */; };
+		B8046D8B1D49368C0050C0FE /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = B8046D891D49368C0050C0FE /* spark.png */; };
+		B8046D941D4953BE0050C0FE /* wrongpt1.sks in Resources */ = {isa = PBXBuildFile; fileRef = B8046D921D4953BE0050C0FE /* wrongpt1.sks */; };
+		B8046D951D4953BE0050C0FE /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = B8046D931D4953BE0050C0FE /* spark.png */; };
+		B8046D971D4955E50050C0FE /* wrongpt2.sks in Resources */ = {isa = PBXBuildFile; fileRef = B8046D961D4955E50050C0FE /* wrongpt2.sks */; };
+		B8046D991D4956E60050C0FE /* wrongpt4.sks in Resources */ = {isa = PBXBuildFile; fileRef = B8046D981D4956E60050C0FE /* wrongpt4.sks */; };
+		B8046D9B1D49570C0050C0FE /* wrongpt3.sks in Resources */ = {isa = PBXBuildFile; fileRef = B8046D9A1D49570C0050C0FE /* wrongpt3.sks */; };
 		B81353B61D480B030004CFA2 /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B81353B51D480B030004CFA2 /* MainScene.sks */; };
 		B81353B81D480EDA0004CFA2 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81353B71D480EDA0004CFA2 /* MainScene.swift */; };
 		B81981E01D427C9900A93D1D /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81981D41D427C9900A93D1D /* CGFloat+Extensions.swift */; };
@@ -39,6 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B8046D881D49368C0050C0FE /* CorrectColor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CorrectColor.sks; sourceTree = "<group>"; };
+		B8046D891D49368C0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		B8046D921D4953BE0050C0FE /* wrongpt1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt1.sks; sourceTree = "<group>"; };
+		B8046D931D4953BE0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		B8046D961D4955E50050C0FE /* wrongpt2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt2.sks; sourceTree = "<group>"; };
+		B8046D981D4956E60050C0FE /* wrongpt4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt4.sks; sourceTree = "<group>"; };
+		B8046D9A1D49570C0050C0FE /* wrongpt3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt3.sks; sourceTree = "<group>"; };
 		B81353B51D480B030004CFA2 /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainScene.sks; sourceTree = "<group>"; };
 		B81353B71D480EDA0004CFA2 /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		B81981D41D427C9900A93D1D /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -114,6 +128,11 @@
 		B8B077471D35B802009AB041 = {
 			isa = PBXGroup;
 			children = (
+				B8046D921D4953BE0050C0FE /* wrongpt1.sks */,
+				B8046D981D4956E60050C0FE /* wrongpt4.sks */,
+				B8046D9A1D49570C0050C0FE /* wrongpt3.sks */,
+				B8046D961D4955E50050C0FE /* wrongpt2.sks */,
+				B8046D931D4953BE0050C0FE /* spark.png */,
 				B8B077521D35B802009AB041 /* Square Mind */,
 				B8B077511D35B802009AB041 /* Products */,
 			);
@@ -130,6 +149,8 @@
 		B8B077521D35B802009AB041 /* Square Mind */ = {
 			isa = PBXGroup;
 			children = (
+				B8046D881D49368C0050C0FE /* CorrectColor.sks */,
+				B8046D891D49368C0050C0FE /* spark.png */,
 				B81981D31D427C9900A93D1D /* SKTUtils */,
 				B8B077531D35B802009AB041 /* AppDelegate.swift */,
 				B8B077551D35B802009AB041 /* GameScene.sks */,
@@ -213,10 +234,17 @@
 			files = (
 				B8B077561D35B802009AB041 /* GameScene.sks in Resources */,
 				B81DE45F1D412ED800389329 /* SceneType5.sks in Resources */,
+				B8046D8B1D49368C0050C0FE /* spark.png in Resources */,
+				B8046D951D4953BE0050C0FE /* spark.png in Resources */,
 				B81353B61D480B030004CFA2 /* MainScene.sks in Resources */,
 				B81DE45D1D412EAB00389329 /* SceneType4.sks in Resources */,
 				B81DE4591D412E4900389329 /* SceneType2.sks in Resources */,
+				B8046D991D4956E60050C0FE /* wrongpt4.sks in Resources */,
 				B81DE45B1D412E9400389329 /* SceneType3.sks in Resources */,
+				B8046D941D4953BE0050C0FE /* wrongpt1.sks in Resources */,
+				B8046D9B1D49570C0050C0FE /* wrongpt3.sks in Resources */,
+				B8046D971D4955E50050C0FE /* wrongpt2.sks in Resources */,
+				B8046D8A1D49368C0050C0FE /* CorrectColor.sks in Resources */,
 				B8B077621D35B802009AB041 /* LaunchScreen.storyboard in Resources */,
 				B8B0775F1D35B802009AB041 /* Assets.xcassets in Resources */,
 				B81DE4571D412E2300389329 /* SceneType1.sks in Resources */,
