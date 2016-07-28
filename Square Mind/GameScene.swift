@@ -15,6 +15,7 @@ enum GameSceneState {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var homebutton: MSButtonNode!
     var highscorelable: SKLabelNode!
+    // change highscore
     var highscore: SKLabelNode!
     var Finalscore: SKLabelNode!
     var endOfGameButtonRestart: MSButtonNode!
@@ -38,6 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastLife: SKNode!
     var secondLife: SKNode!
     var firstLife: SKNode!
+    
     
     //how do I not make it a stored compound
     var gameState: GameSceneState = .Active
@@ -122,7 +124,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 /* Add particles to scene */
                 addChild(partical)
-
+                
+                let correctsound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
+                self.runAction(correctsound)
+                
                 scoreLabel.text = String("\(score)")
                 node.name = "tappedblock"
                 node.zPosition = -30
@@ -215,6 +220,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highscore.hidden = true
         highscorelable.hidden = true
         Finalscore.hidden = true
+        
         
         /* Set reference to scroll layer node */
         /* Set reference to obstacle layer node */
@@ -470,7 +476,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     addChild(wrongpt3)
 
                     lives -= 1
-                    /* Play SFX */
+                    let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
+                    self.runAction(faileffect)
                     print("you lost a life now\(lives)")
                     obstacle.removeFromParent()
                 }
