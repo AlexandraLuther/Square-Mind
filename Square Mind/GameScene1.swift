@@ -1,5 +1,5 @@
 //
-//  GameScene.swift
+//  GameScene1.swift
 //  Square Mind
 //
 //  Created by Alex Luther on 7/12/16.
@@ -8,15 +8,16 @@
 
 import SpriteKit
 
-enum GameSceneState {
-    case Active, GameOver
+enum GameScene1State {
+    case Active, GameOver, Pause
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene1: SKScene, SKPhysicsContactDelegate {
+    let gameManager = GameManager.sharedInstance
     var homebutton: MSButtonNode!
     var highscorelable: SKLabelNode!
     // change highscore
-    var highscore: SKLabelNode!
+    var highscoreput: SKLabelNode!
     var Finalscore: SKLabelNode!
     var endOfGameButtonRestart: MSButtonNode!
     //speed of scrool
@@ -39,16 +40,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastLife: SKNode!
     var secondLife: SKNode!
     var firstLife: SKNode!
+    var pauseButton: MSButtonNode!
+    var playButton: MSButtonNode!
     
     
     //how do I not make it a stored compound
-    var gameState: GameSceneState = .Active
+    var gameState: GameScene1State = .Active
     
     func didBeginContact(/*contact: SKPhysicsContact*/) {
         /* Ensure only called while game running */
         //if gameState != .Active { return }
+        
+        if gameManager.highScore < score {
+            gameManager.highScore = score
+        }
+        pauseButton.hidden = true
         homebutton.hidden = false
-        highscore.hidden = false
+        highscoreput.hidden = false
+        highscoreput.text = "\(gameManager.highScore)"
         highscorelable.hidden = false
         Finalscore.hidden = false
         /* Show restart button */
@@ -116,8 +125,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 /* Convert node location (currently inside Level 1, to scene space) */
                 partical.position = convertPoint(location, fromNode: self)
-                print(partical.position)
-                print(location)
+                
                 //partical.runAction(SKAction.removeFromParentAfterDelay(10))
                 /* Restrict total particles to reduce runtime of particle */
                 partical.numParticlesToEmit = 75
@@ -158,7 +166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let skView = self.view as SKView!
             
             /* Load Game scene */
-            if let scene = GameScene(fileNamed:"GameScene") {
+            if let scene = GameScene1(fileNamed:"GameScene1") {
             
             /* Ensure correct aspect mode */
             scene.scaleMode = .AspectFill
@@ -214,21 +222,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         homebutton = self.childNodeWithName("homebutton") as! MSButtonNode
         highscorelable = self.childNodeWithName("highscorelable") as! SKLabelNode
-        highscore = self.childNodeWithName("highscore") as! SKLabelNode
+        highscoreput = self.childNodeWithName("highscore") as! SKLabelNode
         Finalscore = self.childNodeWithName("Finalscore")as! SKLabelNode
+        playButton = self.childNodeWithName("//playButton") as! MSButtonNode
+        pauseButton = self.childNodeWithName("//pauseButton") as! MSButtonNode
         homebutton.hidden = true
-        highscore.hidden = true
+        highscoreput.hidden = true
         highscorelable.hidden = true
         Finalscore.hidden = true
         
-        
+        playButton.hidden = true
         /* Set reference to scroll layer node */
         /* Set reference to obstacle layer node */
         obstacleLayer = self.childNodeWithName("obstacleLayer")
         //scrollLayer = SKNode()
         endOfGameButtonRestart = self.childNodeWithName("endOfGameButtonRestart") as! MSButtonNode
         duringGameButtonRestart = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
-        
+          duringGameButtonRestart.hidden = true
         
         /* Setup restart button selection handler */
         
@@ -258,7 +268,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let skView = self.view as SKView!
             
             /* Load Game scene */
-            let scene = GameScene(fileNamed:"GameScene") as GameScene!
+            let scene = GameScene1(fileNamed:"GameScene1") as GameScene1!
             
             /* Ensure correct aspect mode */
             scene.scaleMode = .AspectFill
@@ -270,33 +280,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         /* Hide restart button */
         endOfGameButtonRestart.hidden = true
         
-        duringGameButtonRestart.selectedHandler = {
-            
-            print("restart tapped!")
-            
-            /* Grab reference to our SpriteKit view */
-            let skView = self.view as SKView!
-            
-            /* Load Game scene */
-            let scene = GameScene(fileNamed:"GameScene") as GameScene!
-            
-            /* Ensure correct aspect mode */
-            scene.scaleMode = .AspectFill
-            
-            /* Restart game scene */
-            skView.presentScene(scene)
-            
-            
-            
-            
-            self.duringGameButtonRestart.state = .MSButtonNodeStateHidden
+        pauseButton.selectedHandler = {
+            self.gameState = .Pause
+            self.scrollSpeed = 0
+            self.pauseButton.hidden = true
+            self.duringGameButtonRestart.hidden = false
+            self.homebutton.hidden = false
+            self.playButton.hidden = false
+            self.playButton.selectedHandler = {
+                self.pauseButton.hidden = false
+                self.duringGameButtonRestart.hidden = true
+                self.homebutton.hidden = true
+                self.playButton.hidden = true
+                self.gameState = .Active
+                self.increaseSpeed()
+            }
+            self.duringGameButtonRestart.selectedHandler = {
+                print("restart tapped!")
+                
+                /* Grab reference to our SpriteKit view */
+                let skView = self.view as SKView!
+                
+                /* Load Game scene */
+                let scene = GameSceneShape(fileNamed:"GameSceneShape") as GameSceneShape!
+                
+                /* Ensure correct aspect mode */
+                scene.scaleMode = .AspectFill
+                
+                /* Restart game scene */
+                skView.presentScene(scene)
+                
+                
+                
+                
+                self.duringGameButtonRestart.state = .MSButtonNodeStateHidden
+            }
         }
         
-        let  play = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
+        _ = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
         
         // here
         /* Grab reference to our SpriteKit view */
-        let skView = self.view as SKView!
+        _ = self.view as SKView!
         
         
         /* Ensure correct aspect mode */

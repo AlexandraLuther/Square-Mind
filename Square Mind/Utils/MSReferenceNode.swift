@@ -18,6 +18,7 @@ class MSReferenceNode: SKReferenceNode {
     var NodeTypeColor5: SKSpriteNode!
     
     
+    
     override func didLoadReferenceNode(node: SKNode?) {
         
         /* Set reference to avatar node */
@@ -26,6 +27,7 @@ class MSReferenceNode: SKReferenceNode {
         NodeTypeColor3 = childNodeWithName("//NodeTypeColor3") as! SKSpriteNode
         NodeTypeColor4 = childNodeWithName("//NodeTypeColor4") as! SKSpriteNode
         NodeTypeColor5 = childNodeWithName("//NodeTypeColor5") as! SKSpriteNode
+        
     }
 
 }
