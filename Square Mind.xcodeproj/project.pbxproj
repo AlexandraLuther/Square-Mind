@@ -61,7 +61,7 @@
 		B8046D881D49368C0050C0FE /* CorrectColor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CorrectColor.sks; sourceTree = "<group>"; };
 		B8046D891D49368C0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		B8046D921D4953BE0050C0FE /* wrongpt1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt1.sks; sourceTree = "<group>"; };
-		B8046D931D4953BE0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		B8046D931D4953BE0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = ../spark.png; sourceTree = "<group>"; };
 		B8046D961D4955E50050C0FE /* wrongpt2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt2.sks; sourceTree = "<group>"; };
 		B8046D981D4956E60050C0FE /* wrongpt4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt4.sks; sourceTree = "<group>"; };
 		B8046D9A1D49570C0050C0FE /* wrongpt3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt3.sks; sourceTree = "<group>"; };
@@ -183,6 +183,7 @@
 				B8046D981D4956E60050C0FE /* wrongpt4.sks */,
 			);
 			name = "wrong sparklits";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		B83C7D2A1D38496200D29D40 /* Utils */ = {
@@ -198,8 +199,6 @@
 		B8B077471D35B802009AB041 = {
 			isa = PBXGroup;
 			children = (
-				B8298BE01D4FFDB500DAD6F9 /* wrong sparklits */,
-				B8046D931D4953BE0050C0FE /* spark.png */,
 				B8B077521D35B802009AB041 /* Square Mind */,
 				B8B077511D35B802009AB041 /* Products */,
 			);
@@ -216,6 +215,8 @@
 		B8B077521D35B802009AB041 /* Square Mind */ = {
 			isa = PBXGroup;
 			children = (
+				B8046D931D4953BE0050C0FE /* spark.png */,
+				B8298BE01D4FFDB500DAD6F9 /* wrong sparklits */,
 				B8046D881D49368C0050C0FE /* CorrectColor.sks */,
 				B8046D891D49368C0050C0FE /* spark.png */,
 				B81981D31D427C9900A93D1D /* SKTUtils */,
@@ -223,19 +224,19 @@
 				B8B077551D35B802009AB041 /* GameScene1.sks */,
 				B81353B51D480B030004CFA2 /* MainScene.sks */,
 				B87561EA1D4BC90500C97099 /* GameSceneShape.sks */,
-				B81E4B031D4BFFDC00A4458B /* GameScene obsticals */,
 				B8298BDE1D4FF9D100DAD6F9 /* shape Scene */,
+				B81E4B031D4BFFDC00A4458B /* GameScene obsticals */,
 				B87561E81D4BC8EF00C97099 /* GameSceneShape.swift */,
 				B8B077571D35B802009AB041 /* GameScene1.swift */,
 				B81353B71D480EDA0004CFA2 /* MainScene.swift */,
 				B8A4CA4D1D4AC8560021F3FF /* GameManager.swift */,
 				B87561E41D4BBA4400C97099 /* SwiftyUserDefaults.swift */,
 				B87561E61D4BBAA000C97099 /* SwiftyUserDefaults.h */,
-				B8298BDF1D4FF9FB00DAD6F9 /* sounds */,
 				B820BF0D1D36A238005710A6 /* CountdownLabel.swift */,
 				B8B077591D35B802009AB041 /* GameViewController.swift */,
 				B8B0775B1D35B802009AB041 /* Main.storyboard */,
 				B8B0775E1D35B802009AB041 /* Assets.xcassets */,
+				B8298BDF1D4FF9FB00DAD6F9 /* sounds */,
 				B83C7D2A1D38496200D29D40 /* Utils */,
 				B8B077601D35B802009AB041 /* LaunchScreen.storyboard */,
 				B8B077631D35B802009AB041 /* Info.plist */,

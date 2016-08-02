@@ -165,11 +165,11 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         }
     }
     func increaseSpeed() {
-        if score <= 10 {
+        if score <= 2 {
             scrollSpeed = 170
-        } else if score <= 25{
+        } else if score <= 10{
             scrollSpeed = 210
-        }else if score <= 50{
+        }else if score <= 25 {
             scrollSpeed = 240
         }else if score <= 75 {
             scrollSpeed = 270
