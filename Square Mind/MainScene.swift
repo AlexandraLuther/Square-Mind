@@ -9,7 +9,7 @@
 import SpriteKit
 
 class MainScene: SKScene {
-    
+    let gameManager = GameManager.sharedInstance
     /* UI Connections */
     var buttonPlay1: MSButtonNode!
     var quetionmark: MSButtonNode!
@@ -32,7 +32,10 @@ class MainScene: SKScene {
     var type4:SKLabelNode!
     var backgroundForText: SKSpriteNode!
     var xoutbutton: MSButtonNode!
+    var musicOn: MSButtonNode!
+    var musicOff: MSButtonNode!
     var TriangleAndSquare: MSButtonNode!
+    
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -51,14 +54,17 @@ class MainScene: SKScene {
         text7 = self.childNodeWithName("text7") as! SKLabelNode
         text8 = self.childNodeWithName("text8") as! SKLabelNode
         text9 = self.childNodeWithName("text9") as! SKLabelNode
-        arrow1 = self.childNodeWithName("arrow1") as SKNode!
-        arrow2 = self.childNodeWithName("arrow2") as SKNode!
-        arrow3 = self.childNodeWithName("arrow3") as SKNode!
-        arrow4 = self.childNodeWithName("arrow4") as SKNode!
-        type1 = self.childNodeWithName("type1") as! SKLabelNode
-        type2 = self.childNodeWithName("type2") as! SKLabelNode
-        type3 = self.childNodeWithName("type3") as! SKLabelNode
-        type4 = self.childNodeWithName("type4") as! SKLabelNode
+        musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
+        musicOff = self.childNodeWithName("musicOff") as! MSButtonNode
+        
+        if gameManager.mute == true {
+            musicOn.hidden = true
+            musicOff.hidden = false
+        } else if gameManager.mute == false {
+            musicOn.hidden = false
+            musicOff.hidden = true
+        }
+        
         xoutbutton.hidden = true
         backgroundForText.hidden = true
         text1.hidden = true
@@ -70,14 +76,17 @@ class MainScene: SKScene {
         text7.hidden = true
         text8.hidden = true
         text9.hidden = true
-        arrow1.hidden = true
-        arrow2.hidden = true
-        arrow3.hidden = true
-        arrow4.hidden = true
-        type1.hidden = true
-        type2.hidden = true
-        type3.hidden = true
-        type4.hidden = true
+      
+        musicOn.selectedHandler = {
+            self.gameManager.mute = true
+            self.musicOff.hidden = false
+            self.musicOn.hidden = true
+        }
+        musicOff.selectedHandler = {
+            self.gameManager.mute = false
+            self.musicOff.hidden = true
+            self.musicOn.hidden = false
+        }
         quetionmark.selectedHandler = {
             self.backgroundForText.hidden = false
             self.text1.hidden = false
@@ -89,14 +98,7 @@ class MainScene: SKScene {
             self.text7.hidden = false
             self.text8.hidden = false
             self.text9.hidden = false
-            self.arrow1.hidden = false
-            self.arrow2.hidden = false
-            self.arrow3.hidden = false
-            self.arrow4.hidden = false
-            self.type1.hidden = false
-            self.type2.hidden = false
-            self.type3.hidden = false
-            self.type4.hidden = false
+          
             self.xoutbutton.hidden = false
             self.quetionmark.hidden = true
         }
@@ -112,14 +114,6 @@ class MainScene: SKScene {
             self.text7.hidden = true
             self.text8.hidden = true
             self.text9.hidden = true
-            self.arrow1.hidden = true
-            self.arrow2.hidden = true
-            self.arrow3.hidden = true
-            self.arrow4.hidden = true
-            self.type1.hidden = true
-            self.type2.hidden = true
-            self.type3.hidden = true
-            self.type4.hidden = true
             self.quetionmark.hidden = false
             
         }

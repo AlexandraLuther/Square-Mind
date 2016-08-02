@@ -42,7 +42,10 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
     var firstLife: SKNode!
     var pauseButton: MSButtonNode!
     var playButton: MSButtonNode!
-    
+    var musicOn: MSButtonNode!
+    var musicOff: MSButtonNode!
+    var PauseMenuScore: SKLabelNode!
+
     
     //how do I not make it a stored compound
     var gameState: GameScene1State = .Active
@@ -53,6 +56,13 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         
         if gameManager.highScore < score {
             gameManager.highScore = score
+        }
+        if self.gameManager.mute == true {
+            self.musicOn.hidden = true
+            self.musicOff.hidden = false
+        } else if self.gameManager.mute == false {
+            self.musicOn.hidden = false
+            self.musicOff.hidden = true
         }
         pauseButton.hidden = true
         homebutton.hidden = false
@@ -68,7 +78,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         scrollSpeed = 0
     }
     
-    
+  
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
@@ -86,8 +96,10 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             if node.name == "wrong"  {
                 // and maby tap occured
                 lives -= 1
+                if gameManager.mute == false {
                 let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
                 self.runAction(faileffect)
+                }
                 
                 let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
                 let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
@@ -132,10 +144,10 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
                 
                 /* Add particles to scene */
                 addChild(partical)
-                
+                if gameManager.mute == false {
                 let correctsound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
                 self.runAction(correctsound)
-                
+                }
                 scoreLabel.text = String("\(score)")
                 node.name = "tappedblock"
                 node.zPosition = -30
@@ -182,7 +194,8 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             scrollSpeed = 170
         } else if score <= 25{
             scrollSpeed = 210
-        }else if score <= 50{
+        }
+        else if score <= 50 {
             scrollSpeed = 240
         }else if score <= 75 {
             scrollSpeed = 270
@@ -224,13 +237,18 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         highscorelable = self.childNodeWithName("highscorelable") as! SKLabelNode
         highscoreput = self.childNodeWithName("highscore") as! SKLabelNode
         Finalscore = self.childNodeWithName("Finalscore")as! SKLabelNode
+        PauseMenuScore = self.childNodeWithName("PauseMenuScore")as! SKLabelNode
         playButton = self.childNodeWithName("//playButton") as! MSButtonNode
         pauseButton = self.childNodeWithName("//pauseButton") as! MSButtonNode
+        musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
+        musicOff = self.childNodeWithName("musicOff") as! MSButtonNode
+        musicOn.hidden = true
+        musicOff.hidden = true
         homebutton.hidden = true
         highscoreput.hidden = true
         highscorelable.hidden = true
         Finalscore.hidden = true
-        
+        PauseMenuScore.hidden = true
         playButton.hidden = true
         /* Set reference to scroll layer node */
         /* Set reference to obstacle layer node */
@@ -244,7 +262,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         
         
         pickAColor()
-        
+        // what shows up befor the game begings to show what color is right and what is wrong
         correctColor1 = childNodeWithName("correctColor1") as! SKSpriteNode
         correctColor2 = childNodeWithName("correctColor2") as! SKSpriteNode
         correctColor3 = childNodeWithName("correctColor3") as! SKSpriteNode
@@ -257,9 +275,9 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         incorrectColor1.color = colors[3]!
         incorrectColor2.color = colors[4]!
         
-        createNewObstical(1200)
+        createNewObstical(1400)
         
-        //colorState = colors[0]!
+        
         
         /* Setup restart button selection handler */
         endOfGameButtonRestart.selectedHandler = {
@@ -281,13 +299,38 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         endOfGameButtonRestart.hidden = true
         
         pauseButton.selectedHandler = {
+            self.scoreLabel.position.x = 154
+            self.scoreLabel.position.y = 280
+            self.PauseMenuScore.hidden = false
             self.gameState = .Pause
             self.scrollSpeed = 0
+            if self.gameManager.mute == true {
+                self.musicOn.hidden = true
+                self.musicOff.hidden = false
+            } else if self.gameManager.mute == false {
+                self.musicOn.hidden = false
+                self.musicOff.hidden = true
+            }
+            self.musicOn.selectedHandler = {
+                self.gameManager.mute = true
+                self.musicOff.hidden = false
+                self.musicOn.hidden = true
+            }
+            self.musicOff.selectedHandler = {
+                self.gameManager.mute = false
+                self.musicOff.hidden = true
+                self.musicOn.hidden = false
+            }
             self.pauseButton.hidden = true
             self.duringGameButtonRestart.hidden = false
             self.homebutton.hidden = false
             self.playButton.hidden = false
             self.playButton.selectedHandler = {
+                self.PauseMenuScore.hidden = true
+                self.scoreLabel.position.x = 72
+                self.scoreLabel.position.y = 432
+                self.musicOff.hidden = true
+                self.musicOn.hidden = true
                 self.pauseButton.hidden = false
                 self.duringGameButtonRestart.hidden = true
                 self.homebutton.hidden = true
@@ -302,7 +345,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
                 let skView = self.view as SKView!
                 
                 /* Load Game scene */
-                let scene = GameSceneShape(fileNamed:"GameSceneShape") as GameSceneShape!
+                let scene = GameScene1(fileNamed:"GameScene1") as GameScene1!
                 
                 /* Ensure correct aspect mode */
                 scene.scaleMode = .AspectFill
@@ -361,53 +404,25 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        let colorOrder = Int(arc4random_uniform(4))
+        let colorOrder = Int(arc4random_uniform(5))
         if colorOrder == 0 {
             newObstacle.NodeTypeColor1.color = colors[0]!
             newObstacle.NodeTypeColor1.name = "correctblock"
-            newObstacle.NodeTypeColor2.color = colors[1]!
-            newObstacle.NodeTypeColor2.name = "correctblock"
-            newObstacle.NodeTypeColor3.color = colors[2]!
-            newObstacle.NodeTypeColor3.name = "correctblock"
-            newObstacle.NodeTypeColor4.color = colors[3]!
-            newObstacle.NodeTypeColor4.name = "wrong"
-            newObstacle.NodeTypeColor5.color = colors[4]!
-            newObstacle.NodeTypeColor5.name = "wrong"
+            
         } else if colorOrder == 1 {
             newObstacle.NodeTypeColor1.color = colors[1]!
             newObstacle.NodeTypeColor1.name = "correctblock"
-            newObstacle.NodeTypeColor2.color = colors[2]!
-            newObstacle.NodeTypeColor2.name = "correctblock"
-            newObstacle.NodeTypeColor3.color = colors[4]!
-            newObstacle.NodeTypeColor3.name = "wrong"
-            newObstacle.NodeTypeColor4.color = colors[0]!
-            newObstacle.NodeTypeColor4.name = "correctblock"
-            newObstacle.NodeTypeColor5.color = colors[3]!
-            newObstacle.NodeTypeColor5.name = "wrong"
+            
         } else if colorOrder == 2 {
             newObstacle.NodeTypeColor1.color = colors[2]!
             newObstacle.NodeTypeColor1.name = "correctblock"
-            newObstacle.NodeTypeColor2.color = colors[3]!
-            newObstacle.NodeTypeColor2.name = "wrong"
-            newObstacle.NodeTypeColor3.color = colors[0]!
-            newObstacle.NodeTypeColor3.name = "correctblock"
-            newObstacle.NodeTypeColor4.color = colors[4]!
-            newObstacle.NodeTypeColor4.name = "wrong"
-            newObstacle.NodeTypeColor5.color = colors[1]!
-            newObstacle.NodeTypeColor5.name = "correctblock"
             
         } else if colorOrder == 3 {
             newObstacle.NodeTypeColor1.color = colors[4]!
             newObstacle.NodeTypeColor1.name = "wrong"
-            newObstacle.NodeTypeColor2.color = colors[0]!
-            newObstacle.NodeTypeColor2.name = "correctblock"
-            newObstacle.NodeTypeColor3.color = colors[3]!
-            newObstacle.NodeTypeColor3.name = "wrong"
-            newObstacle.NodeTypeColor4.color = colors[1]!
-            newObstacle.NodeTypeColor4.name = "correctblock"
-            newObstacle.NodeTypeColor5.color = colors[2]!
-            newObstacle.NodeTypeColor5.name = "correctblock"
-            
+        } else if colorOrder == 4 {
+            newObstacle.NodeTypeColor1.color = colors[3]!
+            newObstacle.NodeTypeColor1.name = "wrong"
         }
         
         /* Create a new obstacle reference object using our obstacle resource */
@@ -438,25 +453,25 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
                 createNewObstical(360)
                 spawnTimer = 0
                 if score <= 10 {
-                    spawnTimerFixed = 2.4
+                    spawnTimerFixed = 0.54
                 } else if score <= 25 {
-                    spawnTimerFixed = 1.92
+                    spawnTimerFixed = 0.47
                 } else if score <= 50 {
-                    spawnTimerFixed = 1.55
+                    spawnTimerFixed = 0.44
                 } else if score <= 75 {
-                    spawnTimerFixed = 1.35
+                    spawnTimerFixed = 0.41
                 } else if score <= 100 {
-                    spawnTimerFixed = 1.22
+                    spawnTimerFixed = 0.39
                 } else if score <= 150 {
-                    spawnTimerFixed = 1.17
+                    spawnTimerFixed = 0.37
                 } else {
-                    spawnTimerFixed = 1.15
+                    spawnTimerFixed = 0.37
                 }
                 
             }
             /* Remove obstacle node from obstacle layer */
             
-            if obstaclePosition.x <= -360 {
+            if obstaclePosition.x <= -70 {
                 obstacle.removeFromParent()
             }
             
@@ -469,9 +484,9 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
     func mustTap() {
         for obstacle in obstacleLayer.children as! [MSReferenceNode] {
             let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
-            if obstaclePosition.x < -350 {
-                // print(obstaclePosition)
-                if obstacle.NodeTypeColor1.name == "correctblock" || obstacle.NodeTypeColor2.name == "correctblock" || obstacle.NodeTypeColor3.name == "correctblock" || obstacle.NodeTypeColor4.name == "correctblock" || obstacle.NodeTypeColor5.name == "correctblock" {
+            if obstaclePosition.x < -70 {
+                // live was lost becouse it wasn't taped
+                if obstacle.NodeTypeColor1.name == "correctblock" {
                     
                     let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
                     let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
@@ -501,8 +516,10 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
                     addChild(wrongpt3)
 
                     lives -= 1
+                    if gameManager.mute == false {
                     let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
                     self.runAction(faileffect)
+                    }
                     print("you lost a life now\(lives)")
                     obstacle.removeFromParent()
                 }

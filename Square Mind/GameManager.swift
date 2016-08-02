@@ -12,6 +12,8 @@ import Foundation
 extension DefaultsKeys {
     static let highScore = DefaultsKey<Int>("highScore")
     static let highScoreShape = DefaultsKey<Int>("highScoreShape")
+    static let mute = DefaultsKey<Bool>("mute")
+
 }
 
 class GameManager : CustomStringConvertible {
@@ -22,6 +24,7 @@ class GameManager : CustomStringConvertible {
     /* Properties */
     var highScore = 0
     var highScoreShape = 0
+    var mute = false
     
     /* Debug description */
     var description:String {
@@ -43,7 +46,7 @@ class GameManager : CustomStringConvertible {
         
         Defaults[.highScore] = highScore
         Defaults[.highScoreShape] = highScoreShape
-        
+        Defaults[.mute] = mute
         
         
         /* Debug */
@@ -56,7 +59,7 @@ class GameManager : CustomStringConvertible {
         
         highScore = Defaults[.highScore]
         highScoreShape = Defaults[.highScoreShape]
-        
+        mute = Defaults[.mute]
         
         
     }

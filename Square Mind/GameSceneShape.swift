@@ -42,6 +42,9 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
     var firstLife: SKNode!
     var pauseButton: MSButtonNode!
     var playButton: MSButtonNode!
+    var musicOn: MSButtonNode!
+    var musicOff: MSButtonNode!
+    var PauseMenuScore: SKLabelNode!
     
     
     //how do I not make it a stored compound
@@ -53,6 +56,13 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         
         if gameManager.highScoreShape < score {
             gameManager.highScoreShape = score
+        }
+        if self.gameManager.mute == true {
+            self.musicOn.hidden = true
+            self.musicOff.hidden = false
+        } else if self.gameManager.mute == false {
+            self.musicOn.hidden = false
+            self.musicOff.hidden = true
         }
         pauseButton.hidden = true
         homebutton.hidden = false
@@ -86,9 +96,10 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             if node.name == "wrong"  {
                 // and maby tap occured
                 lives -= 1
+                if gameManager.mute == false {
                 let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
                 self.runAction(faileffect)
-                
+                }
                 let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
                 let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
                 let wrongpt3 = SKEmitterNode(fileNamed: "wrongpt3")!
@@ -132,10 +143,10 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
                 
                 /* Add particles to scene */
                 addChild(partical)
-                
+                if gameManager.mute == false {
                 let correctsound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
                 self.runAction(correctsound)
-                
+                }
                 scoreLabel.text = String("\(score)")
                 node.name = "tappedblock"
                 node.zPosition = -30
@@ -211,13 +222,18 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         highscorelable = self.childNodeWithName("highscorelable") as! SKLabelNode
         highscoreput = self.childNodeWithName("//highscoreput") as! SKLabelNode
         Finalscore = self.childNodeWithName("Finalscore")as! SKLabelNode
+        PauseMenuScore = self.childNodeWithName("PauseMenuScore")as! SKLabelNode
         playButton = self.childNodeWithName("//playButton") as! MSButtonNode
         pauseButton = self.childNodeWithName("//pauseButton") as! MSButtonNode
+        musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
+        musicOff = self.childNodeWithName("musicOff") as! MSButtonNode
+        musicOn.hidden = true
+        musicOff.hidden = true
         homebutton.hidden = true
         highscoreput.hidden = true
         highscorelable.hidden = true
         Finalscore.hidden = true
-        
+        PauseMenuScore.hidden = true
         playButton.hidden = true
         
         /* Set reference to scroll layer node */
@@ -267,14 +283,40 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         /* Hide restart button */
         endOfGameButtonRestart.hidden = true
         
+        
         pauseButton.selectedHandler = {
+            self.scoreLabel.position.x = 154
+            self.scoreLabel.position.y = 280
             self.gameState = .Pause
+            self.PauseMenuScore.hidden = false
             self.scrollSpeed = 0
+            if self.gameManager.mute == true {
+                self.musicOn.hidden = true
+                self.musicOff.hidden = false
+            } else if self.gameManager.mute == false {
+                self.musicOn.hidden = false
+                self.musicOff.hidden = true
+            }
+            self.musicOn.selectedHandler = {
+                self.gameManager.mute = true
+                self.musicOff.hidden = false
+                self.musicOn.hidden = true
+            }
+            self.musicOff.selectedHandler = {
+                self.gameManager.mute = false
+                self.musicOff.hidden = true
+                self.musicOn.hidden = false
+            }
             self.pauseButton.hidden = true
             self.duringGameButtonRestart.hidden = false
             self.homebutton.hidden = false
             self.playButton.hidden = false
             self.playButton.selectedHandler = {
+                self.PauseMenuScore.hidden = true
+                self.scoreLabel.position.x = 72
+                self.scoreLabel.position.y = 432
+                self.musicOff.hidden = true
+                self.musicOn.hidden = true
                 self.pauseButton.hidden = false
                 self.duringGameButtonRestart.hidden = true
                 self.homebutton.hidden = true
@@ -283,24 +325,24 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
                 self.increaseSpeed()
             }
             self.duringGameButtonRestart.selectedHandler = {
-            print("restart tapped!")
-            
-            /* Grab reference to our SpriteKit view */
-            let skView = self.view as SKView!
-            
-            /* Load Game scene */
-            let scene = GameSceneShape(fileNamed:"GameSceneShape") as GameSceneShape!
-            
-            /* Ensure correct aspect mode */
-            scene.scaleMode = .AspectFill
-            
-            /* Restart game scene */
-            skView.presentScene(scene)
-            
-            
-            
-            
-            self.duringGameButtonRestart.state = .MSButtonNodeStateHidden
+                print("restart tapped!")
+                
+                /* Grab reference to our SpriteKit view */
+                let skView = self.view as SKView!
+                
+                /* Load Game scene */
+                let scene = GameSceneShape(fileNamed:"GameSceneShape") as GameSceneShape!
+                
+                /* Ensure correct aspect mode */
+                scene.scaleMode = .AspectFill
+                
+                /* Restart game scene */
+                skView.presentScene(scene)
+                
+                
+                
+                
+                self.duringGameButtonRestart.state = .MSButtonNodeStateHidden
             }
         }
         
@@ -483,8 +525,10 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
                     addChild(wrongpt3)
                     
                     lives -= 1
+                    if gameManager.mute == false {
                     let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
                     self.runAction(faileffect)
+                    }
                     print("you lost a life now\(lives)")
                     obstacle.removeFromParent()
                 }

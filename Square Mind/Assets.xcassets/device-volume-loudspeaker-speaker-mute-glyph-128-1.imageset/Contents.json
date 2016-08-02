@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "device-volume-loudspeaker-speaker-mute-glyph-128-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "device-volume-loudspeaker-speaker-mute-glyph-128.png",
       "scale" : "2x"
     },
     {
