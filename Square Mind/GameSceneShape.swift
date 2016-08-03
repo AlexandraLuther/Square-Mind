@@ -16,19 +16,15 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
     let gameManager = GameManager.sharedInstance
     var homebutton: MSButtonNode!
     var highscorelable: SKLabelNode!
-    // change highscore
     var highscoreput: SKLabelNode!
     var Finalscore: SKLabelNode!
     var endOfGameButtonRestart: MSButtonNode!
-    //speed of scrool
     var scrollSpeed: CGFloat = 170
     var obstacleLayer: SKNode!
     let fixedDelta: CFTimeInterval = 1.0/60.0
-    // attempt to implement restar button ///
     var duringGameButtonRestart: MSButtonNode!
     var spawnTimer: CFTimeInterval = 0
     var spawnTimerFixed: CFTimeInterval = 7.0
-    //chage
     var colortype1: SKNode!
     var correctSquare: SKSpriteNode!
     var correctTriangle: SKSpriteNode!
@@ -46,15 +42,16 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
     var musicOff: MSButtonNode!
     var PauseMenuScore: SKLabelNode!
     
-    
-    //how do I not make it a stored compound
     var gameState: GameSceneShapeState = .Active
     
-    func didBeginContact(/*contact: SKPhysicsContact*/) {
-        /* Ensure only called while game running */
-        //if gameState != .Active { return }
-        
+    func didBeginContact() {
+        /* when game is over */
         if gameManager.highScoreShape < score {
+            let partical = SKEmitterNode(fileNamed: "beathighscore")!
+            partical.position.x = 0
+            partical.position.y = 0
+            partical.numParticlesToEmit = 600
+            addChild(partical)
             gameManager.highScoreShape = score
         }
         if self.gameManager.mute == true {
@@ -64,13 +61,22 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             self.musicOn.hidden = false
             self.musicOff.hidden = true
         }
+        self.musicOn.selectedHandler = {
+            self.gameManager.mute = true
+            self.musicOff.hidden = false
+            self.musicOn.hidden = true
+        }
+        self.musicOff.selectedHandler = {
+            self.gameManager.mute = false
+            self.musicOff.hidden = true
+            self.musicOn.hidden = false
+        }
         pauseButton.hidden = true
         homebutton.hidden = false
         highscoreput.hidden = false
         highscoreput.text = "\(gameManager.highScoreShape)"
         highscorelable.hidden = false
         Finalscore.hidden = false
-        /* Show restart button */
         duringGameButtonRestart.hidden = true
         scoreLabel.position.x = 154
         scoreLabel.position.y = 250
@@ -79,33 +85,26 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
         /* Disable touch if game state is not active */
         if gameState != .Active { return }
         
         for touch in touches {
-            
-            /* Grab position of touch relative to the grid */
             let location  = touch.locationInNode(self)
             let node = self.nodeAtPoint(location)
-            //var node2 = SKSpriteNode(imageNamed: node.name!)
-            print(node.name)
             
             if node.name == "wrong"  {
-                // and maby tap occured
                 lives -= 1
                 if gameManager.mute == false {
-                let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
-                self.runAction(faileffect)
+                    let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
+                    self.runAction(faileffect)
                 }
+                
                 let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
                 let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
                 let wrongpt3 = SKEmitterNode(fileNamed: "wrongpt3")!
                 let wrongpt4 = SKEmitterNode(fileNamed: "wrongpt4")!
                 
-                /* location of border of wrong move */
                 wrongpt1.position.x = 20
                 wrongpt1.position.y = 10
                 wrongpt2.position.x = 20
@@ -115,49 +114,38 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
                 wrongpt4.position.x = 150
                 wrongpt4.position.y = 470
                 
-                //partical.runAction(SKAction.removeFromParentAfterDelay(10))
-                /* Restrict total particles to reduce runtime of particle */
                 wrongpt1.numParticlesToEmit = 75
                 wrongpt2.numParticlesToEmit = 75
                 wrongpt4.numParticlesToEmit = 75
                 wrongpt3.numParticlesToEmit = 75
-                /* Add particles to scene */
+                
                 addChild(wrongpt1)
                 addChild(wrongpt2)
                 addChild(wrongpt4)
                 addChild(wrongpt3)
                 
-                print("You now have \(lives) lives.")
-                
             } else if node.name == "correctblock" {
                 score += 1
                 /* Load our particle effect */
                 let partical = SKEmitterNode(fileNamed: "CorrectColor")!
-                
-                /* Convert node location (currently inside Level 1, to scene space) */
                 partical.position = convertPoint(location, fromNode: self)
-                
-                //partical.runAction(SKAction.removeFromParentAfterDelay(10))
-                /* Restrict total particles to reduce runtime of particle */
                 partical.numParticlesToEmit = 75
-                
-                /* Add particles to scene */
                 addChild(partical)
+                
                 if gameManager.mute == false {
-                let correctsound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
-                self.runAction(correctsound)
+                    let correctsound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
+                    self.runAction(correctsound)
                 }
+                
                 scoreLabel.text = String("\(score)")
                 node.name = "tappedblock"
-                node.zPosition = -30
+                node.hidden = true
                 print("Now the score is:\(score)")
-                
-                
             }
-            
         }
-        
     }
+    
+    
     func lossOfLives(){
         firstLife = self.childNodeWithName("firstLife")
         secondLife = self.childNodeWithName("secondLife")
@@ -172,50 +160,38 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             lastLife.hidden = true
             gameState = .GameOver
             didBeginContact()
-        
-        }
-    }
-    func increaseSpeed() {
-        if score <= 2 {
-            scrollSpeed = 170
-        } else if score <= 10{
-            scrollSpeed = 210
-        }else if score <= 25 {
-            scrollSpeed = 240
-        }else if score <= 75 {
-            scrollSpeed = 270
-        } else if score <= 100 {
-            scrollSpeed = 300
-        } else if score <= 150 {
-            scrollSpeed = 330
-        } else {
-            scrollSpeed = 360
         }
     }
     
-    // changebutton
+    
+    func increaseSpeed() {
+         if score <= 10{
+            scrollSpeed = 240
+        }else if score <= 25 {
+            scrollSpeed = 270
+        }else if score <= 75 {
+            scrollSpeed = 300
+        } else if score <= 100 {
+            scrollSpeed = 330
+        } else {
+            scrollSpeed = 330
+        
+        }
+    }
+    
+    
     func homeButtonSelected() {
         homebutton.selectedHandler = {
-            
-            /* Grab reference to our SpriteKit view */
             let skView = self.view as SKView!
-            
-            /* Load Game scene */
             let scene = MainScene(fileNamed:"MainScene") as MainScene!
-            
-            /* Ensure correct aspect mode */
             scene.scaleMode = .AspectFill
-            
-            /* Show debug */
             skView.showsPhysics = true
             skView.showsDrawCount = true
             skView.showsFPS = true
-            
-            /* Start game scene */
             skView.presentScene(scene)
         }
-        
     }
+    
     
     override func didMoveToView(view: SKView) {
         homebutton = self.childNodeWithName("homebutton") as! MSButtonNode
@@ -227,6 +203,10 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         pauseButton = self.childNodeWithName("//pauseButton") as! MSButtonNode
         musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
         musicOff = self.childNodeWithName("musicOff") as! MSButtonNode
+        obstacleLayer = self.childNodeWithName("obstacleLayer")
+        endOfGameButtonRestart = self.childNodeWithName("endOfGameButtonRestart") as! MSButtonNode
+        duringGameButtonRestart = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
+        
         musicOn.hidden = true
         musicOff.hidden = true
         homebutton.hidden = true
@@ -235,20 +215,9 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         Finalscore.hidden = true
         PauseMenuScore.hidden = true
         playButton.hidden = true
-        
-        /* Set reference to scroll layer node */
-        /* Set reference to obstacle layer node */
-        obstacleLayer = self.childNodeWithName("obstacleLayer")
-        //scrollLayer = SKNode()
-        endOfGameButtonRestart = self.childNodeWithName("endOfGameButtonRestart") as! MSButtonNode
-        duringGameButtonRestart = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
         duringGameButtonRestart.hidden = true
         
-        /* Setup restart button selection handler */
-        
-        
         pickAColor()
-        
         correctSquare = childNodeWithName("correctSquare") as! SKSpriteNode
         correctTriangle = childNodeWithName("correctTriangle") as! SKSpriteNode
         incorrectTriangle = childNodeWithName("incorrectTriangle") as! SKSpriteNode
@@ -260,31 +229,19 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         incorrectSquare.color = colors[1]!
         
         
-        createNewObstical(1200)
+        createNewObstical(1700)
         
-        //colorState = colors[0]!
-        
-        /* Setup restart button selection handler */
         endOfGameButtonRestart.selectedHandler = {
-            
-            /* Grab reference to our SpriteKit view */
             let skView = self.view as SKView!
-            
-            /* Load Game scene */
             let scene = GameSceneShape(fileNamed:"GameSceneShape") as GameSceneShape!
-            
-            /* Ensure correct aspect mode */
             scene.scaleMode = .AspectFill
-            
-            /* Restart game scene */
             skView.presentScene(scene)
             
         }
-        /* Hide restart button */
         endOfGameButtonRestart.hidden = true
         
-        
         pauseButton.selectedHandler = {
+            /*pause button */
             self.scoreLabel.position.x = 154
             self.scoreLabel.position.y = 280
             self.gameState = .Pause
@@ -312,6 +269,7 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             self.homebutton.hidden = false
             self.playButton.hidden = false
             self.playButton.selectedHandler = {
+                /* play buttton */
                 self.PauseMenuScore.hidden = true
                 self.scoreLabel.position.x = 72
                 self.scoreLabel.position.y = 432
@@ -324,48 +282,25 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
                 self.gameState = .Active
                 self.increaseSpeed()
             }
+            
             self.duringGameButtonRestart.selectedHandler = {
-                print("restart tapped!")
-                
-                /* Grab reference to our SpriteKit view */
+                /* restar button */
                 let skView = self.view as SKView!
-                
-                /* Load Game scene */
                 let scene = GameSceneShape(fileNamed:"GameSceneShape") as GameSceneShape!
-                
-                /* Ensure correct aspect mode */
                 scene.scaleMode = .AspectFill
-                
-                /* Restart game scene */
                 skView.presentScene(scene)
-                
-                
-                
                 
                 self.duringGameButtonRestart.state = .MSButtonNodeStateHidden
             }
         }
-        
-        _ = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
-        
-        // here
-        /* Grab reference to our SpriteKit view */
-        _ = self.view as SKView!
-        
-        
-        /* Ensure correct aspect mode */
-        //scene.scaleMode = .AspectFillscoreLabel
-        // somthing here is wrong
         scoreLabel = self.childNodeWithName("scoreLabel") as! SKLabelNode
         scoreLabel.text = String("\(score)")
-        
-        
     }
     
     func createNewObstical(distanceFromLast: CGFloat) {
         var newObstacle: MSReferenceNodeShape!
         
-        let randomScene = Int(arc4random_uniform(4))
+        let randomScene = Int(arc4random_uniform(5))
         print(randomScene)
         if randomScene == 0 {
             let resourcePath = NSBundle.mainBundle().pathForResource("ShapeSceneType1", ofType: "sks")
@@ -383,201 +318,140 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             let resourcePath = NSBundle.mainBundle().pathForResource("ShapeSceneType4", ofType: "sks")
             newObstacle = MSReferenceNodeShape(URL: NSURL (fileURLWithPath: resourcePath!))
             obstacleLayer.addChild(newObstacle)
-        } else  {
+        } else if  randomScene == 4 {
             let resourcePath = NSBundle.mainBundle().pathForResource("ShapeSceneType5", ofType: "sks")
             newObstacle = MSReferenceNodeShape(URL: NSURL (fileURLWithPath: resourcePath!))
             obstacleLayer.addChild(newObstacle)
         }
         
-        
-        let colorOrder = Int(arc4random_uniform(3))
+        let colorOrder = Int(arc4random_uniform(4))
         if colorOrder == 0 {
-            newObstacle.SquareType1.color = colors[0]!
-            newObstacle.SquareType1.name = "correctblock"
-            newObstacle.SquareType2.color = colors[1]!
-            newObstacle.SquareType2.name = "wrong"
-            newObstacle.triangleType1.color = colors[0]!
-            newObstacle.triangleType1.name = "wrong"
-            newObstacle.triangleType2.color = colors[1]!
-            newObstacle.triangleType2.name = "correctblock"
-            
+                newObstacle.triangleType1.color = colors[0]!
+                newObstacle.triangleType1.name = "wrong"
+                newObstacle.NodeTypeShapeColor1.color = colors[0]!
+                newObstacle.NodeTypeShapeColor1.name = "correctblock"
         } else if colorOrder == 1 {
-            newObstacle.SquareType1.color = colors[1]!
-            newObstacle.SquareType1.name = "wrong"
-            newObstacle.SquareType2.color = colors[0]!
-            newObstacle.SquareType2.name = "correctblock"
-            newObstacle.triangleType1.color = colors[1]!
-            newObstacle.triangleType1.name = "correctblock"
-            newObstacle.triangleType2.color = colors[0]!
-            newObstacle.triangleType2.name = "wrong"
-           
+                newObstacle.triangleType1.color = colors[1]!
+                newObstacle.triangleType1.name = "correctblock"
+                newObstacle.NodeTypeShapeColor1.color = colors[1]!
+                newObstacle.NodeTypeShapeColor1.name = "wrong"
+        
         } else if colorOrder == 2 {
-            newObstacle.SquareType1.color = colors[0]!
-            newObstacle.SquareType1.name = "correctblock"
-            newObstacle.SquareType2.color = colors[1]!
-            newObstacle.SquareType2.name = "wrong"
-            newObstacle.triangleType1.color = colors[1]!
-            newObstacle.triangleType1.name = "correctblock"
-            newObstacle.triangleType2.color = colors[0]!
-            newObstacle.triangleType2.name = "wrong"
-
-            
-        } else if colorOrder == 3 {
-            newObstacle.SquareType1.color = colors[1]!
-            newObstacle.SquareType1.name = "wrong"
-            newObstacle.SquareType2.color = colors[0]!
-            newObstacle.SquareType2.name = "correctblock"
             newObstacle.triangleType1.color = colors[0]!
             newObstacle.triangleType1.name = "wrong"
-            newObstacle.triangleType2.color = colors[1]!
-            newObstacle.triangleType2.name = "correctblock"
+            newObstacle.NodeTypeShapeColor1.color = colors[1]!
+            newObstacle.NodeTypeShapeColor1.name = "wrong"
+        } else if colorOrder == 3 {
+            newObstacle.triangleType1.color = colors[1]!
+            newObstacle.triangleType1.name = "correctblock"
+            newObstacle.NodeTypeShapeColor1.color = colors[0]!
+            newObstacle.NodeTypeShapeColor1.name = "correctblock"
             
         }
         
-        /* Create a new obstacle reference object using our obstacle resource */
-        //let resourcePath = NSBundle.mainBundle().pathForResource("Obstacle", ofType: "sks")
-        
-        
-        /* Generate new obstacle position, start just outside screen and with a random y value */
         let Position = CGPointMake(distanceFromLast, 0)
-        
-        /* Convert new node position back to obstacle layer space */
         newObstacle.position = self.convertPoint(Position, toNode: obstacleLayer)
-        
     }
     
     
     func updateObstacles() {
-        /* Update Obstacles */
-        
-        
-        /* Loop through obstacle layer nodes */
         for obstacle in obstacleLayer.children as! [SKReferenceNode] {
             /* Get obstacle node position, convert node position to scene space */
             let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
-            
             /* Check if obstacle has left the scene */
             if spawnTimer >= spawnTimerFixed /*change to timer*/{
-                
                 createNewObstical(360)
                 spawnTimer = 0
                 if score <= 10 {
-                    spawnTimerFixed = 2.4
+                    spawnTimerFixed = 0.94
                 } else if score <= 25 {
-                    spawnTimerFixed = 1.92
-                } else if score <= 50 {
-                    spawnTimerFixed = 1.55
+                    spawnTimerFixed = 0.88
                 } else if score <= 75 {
-                    spawnTimerFixed = 1.35
+                    spawnTimerFixed = 0.82
                 } else if score <= 100 {
-                    spawnTimerFixed = 1.22
-                } else if score <= 150 {
-                    spawnTimerFixed = 1.17
+                    spawnTimerFixed = 0.78
                 } else {
-                    spawnTimerFixed = 1.15
-                }
+                    spawnTimerFixed = 0.74
                 
+                }
             }
-            /* Remove obstacle node from obstacle layer */
-            
-            if obstaclePosition.x <= -360 {
+            if obstaclePosition.x < -144 {
                 obstacle.removeFromParent()
             }
             
         }
-        
-        /* Time to add a new obstacle? */
-        
-        
     }
-    func mustTap() {
-        for obstacle in obstacleLayer.children as! [MSReferenceNodeShape] {
-            let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
-            if obstaclePosition.x < -350 {
-                // print(obstaclePosition)
-                if obstacle.SquareType1.name == "correctblock" || obstacle.SquareType2.name == "correctblock" || obstacle.triangleType1.name == "correctblock" || obstacle.triangleType2.name == "correctblock" {
+    
+        func mustTap() {
+            for obstacle in obstacleLayer.children as! [MSReferenceNodeShape] {
+                let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
+                if obstaclePosition.x < -140 {
                     
-                    let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
-                    let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
-                    let wrongpt3 = SKEmitterNode(fileNamed: "wrongpt3")!
-                    let wrongpt4 = SKEmitterNode(fileNamed: "wrongpt4")!
-                    
-                    /* location of border of wrong move */
-                    wrongpt1.position.x = 20
-                    wrongpt1.position.y = 10
-                    wrongpt2.position.x = 20
-                    wrongpt2.position.y = 10
-                    wrongpt3.position.x = 290
-                    wrongpt3.position.y = 100
-                    wrongpt4.position.x = 150
-                    wrongpt4.position.y = 470
-                    
-                    //partical.runAction(SKAction.removeFromParentAfterDelay(10))
-                    /* Restrict total particles to reduce runtime of particle */
-                    wrongpt1.numParticlesToEmit = 75
-                    wrongpt2.numParticlesToEmit = 75
-                    wrongpt4.numParticlesToEmit = 75
-                    wrongpt3.numParticlesToEmit = 75
-                    /* Add particles to scene */
-                    addChild(wrongpt1)
-                    addChild(wrongpt2)
-                    addChild(wrongpt4)
-                    addChild(wrongpt3)
-                    
-                    lives -= 1
-                    if gameManager.mute == false {
-                    let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
-                    self.runAction(faileffect)
+                    if obstacle.NodeTypeShapeColor1.name == "correctblock" || obstacle.triangleType1.name == "correctblock"  {
+                        
+                        let wrongpt1 = SKEmitterNode(fileNamed: "wrongpt1")!
+                        let wrongpt2 = SKEmitterNode(fileNamed: "wrongpt2")!
+                        let wrongpt3 = SKEmitterNode(fileNamed: "wrongpt3")!
+                        let wrongpt4 = SKEmitterNode(fileNamed: "wrongpt4")!
+                        
+                        wrongpt1.position.x = 20
+                        wrongpt1.position.y = 10
+                        wrongpt2.position.x = 20
+                        wrongpt2.position.y = 10
+                        wrongpt3.position.x = 290
+                        wrongpt3.position.y = 100
+                        wrongpt4.position.x = 150
+                        wrongpt4.position.y = 470
+                        
+                        wrongpt1.numParticlesToEmit = 75
+                        wrongpt2.numParticlesToEmit = 75
+                        wrongpt4.numParticlesToEmit = 75
+                        wrongpt3.numParticlesToEmit = 75
+                        
+                        addChild(wrongpt1)
+                        addChild(wrongpt2)
+                        addChild(wrongpt4)
+                        addChild(wrongpt3)
+                        
+                        lives -= 1
+                        if gameManager.mute == false {
+                            let faileffect = SKAction.playSoundFileNamed("fail.mp3", waitForCompletion: false)
+                            self.runAction(faileffect)
+                        }
+                        print("you lost a life now\(lives)")
+                        obstacle.removeFromParent()
                     }
-                    print("you lost a life now\(lives)")
-                    obstacle.removeFromParent()
                 }
             }
         }
         
-    }
-    
-    override func update(currentTime: CFTimeInterval) {
-        homeButtonSelected()
-        /* Skip game update if game no longer active */
-        if gameState != .Active { return }
-        /* Called before each frame is rendered */
-        increaseSpeed()
-        obstacleLayer.position.x -= scrollSpeed * CGFloat(fixedDelta)
-        mustTap()
-        //timer.update()
-        /* Process world scrolling */
-        
-        updateObstacles()
-        lossOfLives()
-        
-        spawnTimer += fixedDelta
-    }
-    
-    var colors = [SKColor?](count: 6, repeatedValue: nil)
-    func pickAColor() {
-        
-        let colorOrder = Int(arc4random_uniform(4))
-        if colorOrder == 0 {
-            colors[0] = SKColor(red: 255/255, green: 189/255, blue: 219/255, alpha: 1.0)
-            colors[1] = SKColor(red: 178/255, green: 222/255, blue: 225/255, alpha: 1.0)
-            
-        } else if colorOrder == 1 {
-            colors[0] = SKColor(red: 178/255, green: 222/255, blue: 225/255, alpha: 1.0)
-            colors[1] = SKColor(red: 255/255, green: 189/255, blue: 219/255, alpha: 1.0)
-
-            
-        } else if colorOrder == 2 {
-            colors[0] = SKColor(red: 185/255, green: 206/255, blue: 251/255, alpha: 1.0)
-            colors[1] = SKColor(red: 255/255, green: 237/255, blue: 180/255, alpha: 1.0)
-            
-        } else  {
-            colors[0] = SKColor(red: 255/255, green: 237/255, blue: 180/255, alpha: 1.0)
-            colors[1] = SKColor(red: 185/255, green: 206/255, blue: 251/255, alpha: 1.0)
-            
+        override func update(currentTime: CFTimeInterval) {
+            homeButtonSelected()
+            if gameState != .Active { return }
+            mustTap()
+            increaseSpeed()
+            obstacleLayer.position.x -= scrollSpeed * CGFloat(fixedDelta)
+            updateObstacles()
+            lossOfLives()
+            spawnTimer += fixedDelta
         }
         
-    }
-    
+        var colors = [SKColor?](count: 6, repeatedValue: nil)
+        func pickAColor() {
+            
+            let colorOrder = Int(arc4random_uniform(4))
+            if colorOrder == 0 {
+                colors[0] = SKColor(red: 255/255, green: 189/255, blue: 219/255, alpha: 1.0)
+                colors[1] = SKColor(red: 178/255, green: 222/255, blue: 225/255, alpha: 1.0)
+            } else if colorOrder == 1 {
+                colors[0] = SKColor(red: 178/255, green: 222/255, blue: 225/255, alpha: 1.0)
+                colors[1] = SKColor(red: 255/255, green: 189/255, blue: 219/255, alpha: 1.0)
+            } else if colorOrder == 2 {
+                colors[0] = SKColor(red: 185/255, green: 206/255, blue: 251/255, alpha: 1.0)
+                colors[1] = SKColor(red: 255/255, green: 237/255, blue: 180/255, alpha: 1.0)
+            } else  {
+                colors[0] = SKColor(red: 255/255, green: 237/255, blue: 180/255, alpha: 1.0)
+                colors[1] = SKColor(red: 185/255, green: 206/255, blue: 251/255, alpha: 1.0)
+            }
+        }
 }
-

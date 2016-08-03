@@ -22,19 +22,13 @@ class MainScene: SKScene {
     var text7: SKLabelNode!
     var text8: SKLabelNode!
     var text9: SKLabelNode!
-    var arrow1: SKNode!
-    var arrow2: SKNode!
-    var arrow3: SKNode!
-    var arrow4: SKNode!
-    var type1:SKLabelNode!
-    var type2:SKLabelNode!
-    var type3:SKLabelNode!
-    var type4:SKLabelNode!
     var backgroundForText: SKSpriteNode!
     var xoutbutton: MSButtonNode!
     var musicOn: MSButtonNode!
     var musicOff: MSButtonNode!
     var TriangleAndSquare: MSButtonNode!
+    var EasyLevelButton: MSButtonNode!
+    var HardLevelButton: MSButtonNode!
     
     
     override func didMoveToView(view: SKView) {
@@ -42,6 +36,8 @@ class MainScene: SKScene {
         TriangleAndSquare = self.childNodeWithName("TriangleAndSquare") as! MSButtonNode
          xoutbutton = self.childNodeWithName("xoutbutton") as! MSButtonNode
         quetionmark = self.childNodeWithName("quetionmark") as! MSButtonNode
+        EasyLevelButton = self.childNodeWithName("EasyLevelButton") as! MSButtonNode
+        HardLevelButton = self.childNodeWithName("HardLevelButton") as! MSButtonNode
         /* Set UI connections */
         buttonPlay1 = self.childNodeWithName("buttonPlay") as! MSButtonNode
         backgroundForText = self.childNodeWithName("backgroundForText") as! SKSpriteNode!
@@ -117,46 +113,45 @@ class MainScene: SKScene {
             self.quetionmark.hidden = false
             
         }
-        TriangleAndSquare.selectedHandler = {
-            /* Grab reference to our SpriteKit view */
+        HardLevelButton.selectedHandler = {
             let skView = self.view as SKView!
-            
-            /* Load Game scene */
-            let scene = GameSceneShape(fileNamed:"GameSceneShape") as GameSceneShape!
-            
-            /* Ensure correct aspect mode */
+            let scene = HardLevel(fileNamed:"HardLevel") as HardLevel!
             scene.scaleMode = .AspectFill
-            
-            /* Show debug */
             skView.showsPhysics = true
             skView.showsDrawCount = true
             skView.showsFPS = true
-            
-            /* Start game scene */
             skView.presentScene(scene)
 
         }
-        /* Setup restart button selection handler */
-        buttonPlay1.selectedHandler = {
-            
-            /* Grab reference to our SpriteKit view */
+        
+        TriangleAndSquare.selectedHandler = {
             let skView = self.view as SKView!
-            
-            /* Load Game scene */
-            let scene = GameScene1(fileNamed:"GameScene1") as GameScene1!
-            
-            /* Ensure correct aspect mode */
+            let scene = GameSceneShape(fileNamed:"GameSceneShape") as GameSceneShape!
             scene.scaleMode = .AspectFill
-            
-            /* Show debug */
             skView.showsPhysics = true
             skView.showsDrawCount = true
             skView.showsFPS = true
-            
-            /* Start game scene */
             skView.presentScene(scene)
         }
         
+        buttonPlay1.selectedHandler = {
+            let skView = self.view as SKView!
+            let scene = GameScene1(fileNamed:"GameScene1") as GameScene1!
+            scene.scaleMode = .AspectFill
+            skView.showsPhysics = true
+            skView.showsDrawCount = true
+            skView.showsFPS = true
+            skView.presentScene(scene)
+        }
+        
+        EasyLevelButton.selectedHandler = {
+            let skView = self.view as SKView!
+            let scene = EasyLevel(fileNamed:"EasyLevel") as EasyLevel!
+            scene.scaleMode = .AspectFill
+            skView.showsPhysics = true
+            skView.showsDrawCount = true
+            skView.showsFPS = true
+            skView.presentScene(scene)
+        }
     }
-    
 }

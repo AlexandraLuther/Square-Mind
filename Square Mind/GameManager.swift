@@ -11,6 +11,8 @@ import Foundation
 /* Define properties to be stored in NSUserDefaults */
 extension DefaultsKeys {
     static let highScore = DefaultsKey<Int>("highScore")
+    static let highScoreLevel1 = DefaultsKey<Int>("highScoreLevel1")
+    static let highScoreLevel3 = DefaultsKey<Int>("highScoreLevel3")
     static let highScoreShape = DefaultsKey<Int>("highScoreShape")
     static let mute = DefaultsKey<Bool>("mute")
 
@@ -25,7 +27,8 @@ class GameManager : CustomStringConvertible {
     var highScore = 0
     var highScoreShape = 0
     var mute = false
-    
+    var highScoreLevel1 = 0
+    var highScoreLevel3 = 0
     /* Debug description */
     var description:String {
         return "High Score: \(highScore)"
@@ -46,8 +49,9 @@ class GameManager : CustomStringConvertible {
         
         Defaults[.highScore] = highScore
         Defaults[.highScoreShape] = highScoreShape
+        Defaults[.highScoreLevel1] = highScoreLevel1
         Defaults[.mute] = mute
-        
+        Defaults[.highScoreLevel3] = highScoreLevel3
         
         /* Debug */
         print(self)
@@ -60,8 +64,8 @@ class GameManager : CustomStringConvertible {
         highScore = Defaults[.highScore]
         highScoreShape = Defaults[.highScoreShape]
         mute = Defaults[.mute]
-        
-        
+        highScoreLevel1 = Defaults[.highScoreLevel1]
+        highScoreLevel3 = Defaults[.highScoreLevel3]
     }
     
     

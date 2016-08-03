@@ -1,5 +1,5 @@
 //
-//  GameScene1.swift
+//  EasyLevel.swift
 //  Square Mind
 //
 //  Created by Alex Luther on 7/12/16.
@@ -8,11 +8,11 @@
 
 import SpriteKit
 
-enum GameScene1State {
+enum EasyLevelState {
     case Active, GameOver, Pause
 }
 
-class GameScene1: SKScene, SKPhysicsContactDelegate {
+class EasyLevel: SKScene, SKPhysicsContactDelegate {
     let gameManager = GameManager.sharedInstance
     var homebutton: MSButtonNode!
     var highscorelable: SKLabelNode!
@@ -43,17 +43,17 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
     var musicOff: MSButtonNode!
     var PauseMenuScore: SKLabelNode!
     
-    var gameState: GameScene1State = .Active
+    var gameState: EasyLevelState = .Active
     
     func didBeginContact() {
         /* called when game ends */
-        if gameManager.highScore < score {
+        if gameManager.highScoreLevel1 < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!
             partical.position.x = 0
             partical.position.y = 0
             partical.numParticlesToEmit = 600
             addChild(partical)
-            gameManager.highScore = score
+            gameManager.highScoreLevel1 = score
         }
         if self.gameManager.mute == true {
             self.musicOn.hidden = true
@@ -75,7 +75,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         pauseButton.hidden = true
         homebutton.hidden = false
         highscoreput.hidden = false
-        highscoreput.text = "\(gameManager.highScore)"
+        highscoreput.text = "\(gameManager.highScoreLevel1)"
         highscorelable.hidden = false
         Finalscore.hidden = false
         duringGameButtonRestart.hidden = true
@@ -234,25 +234,24 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         // what shows up befor the game begings to show what color is right and what is wrong
         correctColor1 = childNodeWithName("correctColor1") as! SKSpriteNode
         correctColor2 = childNodeWithName("correctColor2") as! SKSpriteNode
-        correctColor3 = childNodeWithName("correctColor3") as! SKSpriteNode
+        
         incorrectColor1 = childNodeWithName("incorrectColor1") as! SKSpriteNode
         incorrectColor2 = childNodeWithName("incorrectColor2") as! SKSpriteNode
         
         correctColor1.color = colors[0]!
         correctColor2.color = colors[1]!
-        correctColor3.color = colors[2]!
-        incorrectColor1.color = colors[3]!
-        incorrectColor2.color = colors[4]!
+        incorrectColor1.color = colors[2]!
+        incorrectColor2.color = colors[3]!
         
         createNewObstical(1400)
         
         /* Setup restart button selection handler */
         endOfGameButtonRestart.selectedHandler = {
             let skView = self.view as SKView!
-            let scene = GameScene1(fileNamed:"GameScene1") as GameScene1!
+            let scene = EasyLevel(fileNamed:"EasyLevel") as EasyLevel!
             scene.scaleMode = .AspectFill
             skView.presentScene(scene)
-            }
+        }
         
         endOfGameButtonRestart.hidden = true
         
@@ -302,7 +301,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             self.duringGameButtonRestart.selectedHandler = {
                 /* restart button */
                 let skView = self.view as SKView!
-                let scene = GameScene1(fileNamed:"GameScene1") as GameScene1!
+                let scene = EasyLevel(fileNamed:"EasyLevel") as EasyLevel!
                 scene.scaleMode = .AspectFill
                 skView.presentScene(scene)
                 self.duringGameButtonRestart.state = .MSButtonNodeStateHidden
@@ -338,7 +337,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             obstacleLayer.addChild(newObstacle)
         }
         
-        let colorOrder = Int(arc4random_uniform(5))
+        let colorOrder = Int(arc4random_uniform(4))
         if colorOrder == 0 {
             newObstacle.NodeTypeColor1.color = colors[0]!
             newObstacle.NodeTypeColor1.name = "correctblock"
@@ -347,11 +346,8 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             newObstacle.NodeTypeColor1.name = "correctblock"
         } else if colorOrder == 2 {
             newObstacle.NodeTypeColor1.color = colors[2]!
-            newObstacle.NodeTypeColor1.name = "correctblock"
-        } else if colorOrder == 3 {
-            newObstacle.NodeTypeColor1.color = colors[4]!
             newObstacle.NodeTypeColor1.name = "wrong"
-        } else if colorOrder == 4 {
+        } else if colorOrder == 3 {
             newObstacle.NodeTypeColor1.color = colors[3]!
             newObstacle.NodeTypeColor1.name = "wrong"
         }
@@ -455,26 +451,22 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             colors[0] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
             colors[1] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
             colors[2] = SKColor(red: 252/255, green:186/255, blue: 211/255, alpha: 1.0)
-            colors[3] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
-            colors[4] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
+            colors[3] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
         } else if colorOrder == 1 {
             colors[0] = SKColor(red: 252/255, green: 186/255, blue: 211/255, alpha: 1.0)
             colors[1] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
             colors[2] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
             colors[3] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
-            colors[4] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
         } else if colorOrder == 2 {
             colors[0] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
             colors[1] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
             colors[2] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
             colors[3] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
-            colors[4] = SKColor(red: 252/255, green:186/255, blue: 211/255, alpha: 1.0)
         } else  {
             colors[0] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
             colors[1] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
             colors[2] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
             colors[3] = SKColor(red: 252/255, green: 186/255, blue: 211/255, alpha: 1.0)
-            colors[4] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
         }
     }
 }
