@@ -80,7 +80,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         Finalscore.hidden = false
         duringGameButtonRestart.hidden = true
         scoreLabel.position.x = 154
-        scoreLabel.position.y = 250
+        scoreLabel.position.y = 235
         endOfGameButtonRestart.hidden = false
         scrollSpeed = 0
     }
@@ -452,29 +452,29 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         
         let colorOrder = Int(arc4random_uniform(4))
         if colorOrder == 0 {
-            colors[0] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
-            colors[1] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
-            colors[2] = SKColor(red: 252/255, green:186/255, blue: 211/255, alpha: 1.0)
-            colors[3] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
-            colors[4] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
+            colors[0] = SKColor(red: 152/255, green: 248/255, blue: 248/255, alpha: 1.0)
+            colors[1] = SKColor(red: 176/255, green: 160/255, blue: 248/255, alpha: 1.0)
+            colors[2] = SKColor(red: 196/255, green: 242/255, blue: 200/255, alpha: 1.0)
+            colors[3] = SKColor(red: 239/255, green: 161/255, blue: 185/255, alpha: 1.0)
+            colors[4] = SKColor(red: 252/255, green: 255/255, blue: 217/255, alpha: 1.0)
         } else if colorOrder == 1 {
-            colors[0] = SKColor(red: 252/255, green: 186/255, blue: 211/255, alpha: 1.0)
-            colors[1] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
-            colors[2] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
-            colors[3] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
-            colors[4] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
+            colors[0] = SKColor(red: 196/255, green: 242/255, blue: 200/255, alpha: 1.0)
+            colors[1] = SKColor(red: 152/255, green: 248/255, blue: 248/255, alpha: 1.0)
+            colors[2] = SKColor(red: 252/255, green: 255/255, blue: 217/255, alpha: 1.0)
+            colors[3] = SKColor(red: 176/255, green: 160/255, blue: 248/255, alpha: 1.0)
+            colors[4] = SKColor(red: 239/255, green: 161/255, blue: 185/255, alpha: 1.0)
         } else if colorOrder == 2 {
-            colors[0] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
-            colors[1] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
-            colors[2] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
-            colors[3] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
+            colors[0] = SKColor(red: 176/255, green: 160/255, blue: 248/255, alpha: 1.0)
+            colors[1] = SKColor(red: 252/255, green: 255/255, blue: 217/255, alpha: 1.0)
+            colors[2] = SKColor(red: 239/255, green: 161/255, blue: 185/255, alpha: 1.0)
+            colors[3] = SKColor(red: 152/255, green: 248/255, blue: 248/255, alpha: 1.0)
             colors[4] = SKColor(red: 252/255, green:186/255, blue: 211/255, alpha: 1.0)
         } else  {
-            colors[0] = SKColor(red: 253/255, green: 253/255, blue: 150/255, alpha: 1.0)
-            colors[1] = SKColor(red: 154/255, green: 255/255, blue: 154/255, alpha: 1.0)
-            colors[2] = SKColor(red: 170/255, green: 150/255, blue: 218/255, alpha: 1.0)
-            colors[3] = SKColor(red: 252/255, green: 186/255, blue: 211/255, alpha: 1.0)
-            colors[4] = SKColor(red: 168/255, green: 216/255, blue: 234/255, alpha: 1.0)
+            colors[0] = SKColor(red: 252/255, green: 255/255, blue: 217/255, alpha: 1.0)
+            colors[1] = SKColor(red: 239/255, green: 161/255, blue: 185/255, alpha: 1.0)
+            colors[2] = SKColor(red: 152/255, green: 248/255, blue: 248/255, alpha: 1.0)
+            colors[3] = SKColor(red: 196/255, green: 242/255, blue: 200/255, alpha: 1.0)
+            colors[4] = SKColor(red: 176/255, green: 160/255, blue: 248/255, alpha: 1.0)
         }
     }
 }
