@@ -32,15 +32,14 @@ class MainScene: SKScene {
     var settingsButton: MSButtonNode!
     var xoutofsettings: MSButtonNode!
     var crownScores: MSButtonNode!
-    /*
-    var HighScoreLable:
-    var EasyHighScoreLable:
-    var EasyHighScore:
-    var MediumHighScoreLable:
-    var MediumHighScore:
-    var
-    var 
-    */
+    var highScoreLable: SKLabelNode!
+    var easyHSL: SKLabelNode!
+    var easyHS: SKLabelNode!
+    var mediumHSL: SKLabelNode!
+    var mediumHS: SKLabelNode!
+    var hardHSL: SKLabelNode!
+    var hardHS: SKLabelNode!
+    
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -66,7 +65,21 @@ class MainScene: SKScene {
         title = self.childNodeWithName("title") as! SKLabelNode
         musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
         musicOff = self.childNodeWithName("musicOff") as! MSButtonNode
+        highScoreLable = self.childNodeWithName("highScoreLable") as! SKLabelNode
+        easyHSL = self.childNodeWithName("easyHSL") as! SKLabelNode
+        easyHS = self.childNodeWithName("easyHS") as! SKLabelNode
+        mediumHSL = self.childNodeWithName("mediumHSL") as! SKLabelNode
+        mediumHS = self.childNodeWithName("mediumHS") as! SKLabelNode
+        hardHSL = self.childNodeWithName("hardHSL") as! SKLabelNode
+        hardHS = self.childNodeWithName("hardHS") as! SKLabelNode
         
+        highScoreLable.hidden = true
+        easyHSL.hidden = true
+        easyHS.hidden = true
+        mediumHSL.hidden = true
+        mediumHS.hidden = true
+        hardHSL.hidden = true
+        hardHS.hidden = true
         crownScores.hidden = true
         quetionmark.hidden = true
         xoutofsettings.hidden = true
@@ -109,6 +122,25 @@ class MainScene: SKScene {
                 self.gameManager.mute = false
                 self.musicOff.hidden = true
                 self.musicOn.hidden = false
+            }
+            self.crownScores.selectedHandler = {
+                if self.highScoreLable.hidden == true {
+                    self.highScoreLable.hidden = false
+                    self.easyHSL.hidden = false
+                    self.easyHS.hidden = false
+                    self.mediumHSL.hidden = false
+                    self.mediumHS.hidden = false
+                    self.hardHSL.hidden = false
+                    self.hardHS.hidden = false
+                } else {
+                    self.highScoreLable.hidden = true
+                    self.easyHSL.hidden = true
+                    self.easyHS.hidden = true
+                    self.mediumHSL.hidden = true
+                    self.mediumHS.hidden = true
+                    self.hardHSL.hidden = true
+                    self.hardHS.hidden = true
+                }
             }
             
             self.quetionmark.selectedHandler = {
