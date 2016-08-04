@@ -33,12 +33,15 @@ class MainScene: SKScene {
     var xoutofsettings: MSButtonNode!
     var crownScores: MSButtonNode!
     var highScoreLable: SKLabelNode!
-    var easyHSL: SKLabelNode!
-    var easyHS: SKLabelNode!
+    var EasyHSL: SKLabelNode!
+    var EasyHS: SKLabelNode!
     var mediumHSL: SKLabelNode!
     var mediumHS: SKLabelNode!
     var hardHSL: SKLabelNode!
     var hardHS: SKLabelNode!
+    var challengeHSL: SKLabelNode!
+    var challengeHS: SKLabelNode!
+    
     
     
     override func didMoveToView(view: SKView) {
@@ -50,7 +53,7 @@ class MainScene: SKScene {
         settingsButton = self.childNodeWithName("settingsButton") as! MSButtonNode
         xoutofsettings = self.childNodeWithName("xoutofsettings") as! MSButtonNode
         crownScores = self.childNodeWithName("crownScores") as! MSButtonNode
-
+        
         /* Set UI connections */
         buttonPlay1 = self.childNodeWithName("buttonPlay") as! MSButtonNode
         text1 = self.childNodeWithName("text1") as! SKLabelNode
@@ -66,20 +69,24 @@ class MainScene: SKScene {
         musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
         musicOff = self.childNodeWithName("musicOff") as! MSButtonNode
         highScoreLable = self.childNodeWithName("highScoreLable") as! SKLabelNode
-        easyHSL = self.childNodeWithName("easyHSL") as! SKLabelNode
-        easyHS = self.childNodeWithName("easyHS") as! SKLabelNode
+        EasyHSL = self.childNodeWithName("EasyHSL") as! SKLabelNode
+        EasyHS = self.childNodeWithName("EasyHS") as! SKLabelNode
         mediumHSL = self.childNodeWithName("mediumHSL") as! SKLabelNode
         mediumHS = self.childNodeWithName("mediumHS") as! SKLabelNode
         hardHSL = self.childNodeWithName("hardHSL") as! SKLabelNode
         hardHS = self.childNodeWithName("hardHS") as! SKLabelNode
+        challengeHSL = self.childNodeWithName("challengeHSL") as! SKLabelNode
+        challengeHS = self.childNodeWithName("challengeHS") as! SKLabelNode
         
         highScoreLable.hidden = true
-        easyHSL.hidden = true
-        easyHS.hidden = true
+        EasyHSL.hidden = true
+        EasyHS.hidden = true
         mediumHSL.hidden = true
         mediumHS.hidden = true
         hardHSL.hidden = true
         hardHS.hidden = true
+        challengeHSL.hidden = true
+        challengeHS.hidden = true
         crownScores.hidden = true
         quetionmark.hidden = true
         xoutofsettings.hidden = true
@@ -125,36 +132,83 @@ class MainScene: SKScene {
             }
             self.crownScores.selectedHandler = {
                 if self.highScoreLable.hidden == true {
+                    self.mediumHS.text = "\(self.gameManager.highScore)"
+                    self.EasyHS.text = "\(self.gameManager.highScoreLevel1)"
+                    self.hardHS.text = "\(self.gameManager.highScoreLevel3)"
+                    self.challengeHS.text = "\(self.gameManager.highScoreShape)"
+                    self.text1.hidden = true
+                    self.text2.hidden = true
+                    self.text3.hidden = true
+                    self.text4.hidden = true
+                    self.text5.hidden = true
+                    self.text6.hidden = true
+                    self.text7.hidden = true
+                    self.text8.hidden = true
+                    self.text9.hidden = true
                     self.highScoreLable.hidden = false
-                    self.easyHSL.hidden = false
-                    self.easyHS.hidden = false
+                    self.EasyHSL.hidden = false
+                    self.EasyHS.hidden = false
                     self.mediumHSL.hidden = false
                     self.mediumHS.hidden = false
                     self.hardHSL.hidden = false
                     self.hardHS.hidden = false
+                    self.challengeHSL.hidden = false
+                    self.challengeHS.hidden = false
                 } else {
                     self.highScoreLable.hidden = true
-                    self.easyHSL.hidden = true
-                    self.easyHS.hidden = true
+                    self.EasyHSL.hidden = true
+                    self.EasyHS.hidden = true
                     self.mediumHSL.hidden = true
                     self.mediumHS.hidden = true
                     self.hardHSL.hidden = true
                     self.hardHS.hidden = true
+                    self.challengeHSL.hidden = true
+                    self.challengeHS.hidden = true
                 }
             }
             
             self.quetionmark.selectedHandler = {
                 if self.text1.hidden == true {
-                self.text1.hidden = false
-                self.text2.hidden = false
-                self.text3.hidden = false
-                self.text4.hidden = false
-                self.text5.hidden = false
-                self.text6.hidden = false
-                self.text7.hidden = false
-                self.text8.hidden = false
-                self.text9.hidden = false
-            } else {
+                    self.highScoreLable.hidden = true
+                    self.EasyHSL.hidden = true
+                    self.EasyHS.hidden = true
+                    self.mediumHSL.hidden = true
+                    self.mediumHS.hidden = true
+                    self.hardHSL.hidden = true
+                    self.hardHS.hidden = true
+                    self.challengeHSL.hidden = true
+                    self.challengeHS.hidden = true
+                    self.text1.hidden = false
+                    self.text2.hidden = false
+                    self.text3.hidden = false
+                    self.text4.hidden = false
+                    self.text5.hidden = false
+                    self.text6.hidden = false
+                    self.text7.hidden = false
+                    self.text8.hidden = false
+                    self.text9.hidden = false
+                } else {
+                    self.text1.hidden = true
+                    self.text2.hidden = true
+                    self.text3.hidden = true
+                    self.text4.hidden = true
+                    self.text5.hidden = true
+                    self.text6.hidden = true
+                    self.text7.hidden = true
+                    self.text8.hidden = true
+                    self.text9.hidden = true
+                }
+            }
+            self.xoutofsettings.selectedHandler = {
+                self.highScoreLable.hidden = true
+                self.EasyHSL.hidden = true
+                self.EasyHS.hidden = true
+                self.mediumHSL.hidden = true
+                self.mediumHS.hidden = true
+                self.hardHSL.hidden = true
+                self.hardHS.hidden = true
+                self.challengeHSL.hidden = true
+                self.challengeHS.hidden = true
                 self.text1.hidden = true
                 self.text2.hidden = true
                 self.text3.hidden = true
@@ -164,9 +218,6 @@ class MainScene: SKScene {
                 self.text7.hidden = true
                 self.text8.hidden = true
                 self.text9.hidden = true
-            }
-            }
-            self.xoutofsettings.selectedHandler = {
                 self.title.hidden = false
                 self.settingsButton.hidden = false
                 self.EasyLevelButton.hidden = false
