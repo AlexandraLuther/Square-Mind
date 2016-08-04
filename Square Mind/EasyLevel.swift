@@ -173,20 +173,16 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
     
     
     func increaseSpeed() {
-        if score <= 10 {
+        if score <= 25 {
             scrollSpeed = 170
-        } else if score <= 25{
+        } else if score <= 50{
             scrollSpeed = 210
-        } else if score <= 50 {
-            scrollSpeed = 240
-        } else if score <= 75 {
-            scrollSpeed = 270
         } else if score <= 100 {
-            scrollSpeed = 300
+            scrollSpeed = 240
         } else if score <= 150 {
-            scrollSpeed = 330
+            scrollSpeed = 270
         } else {
-            scrollSpeed = 360
+            scrollSpeed = 300
         }
     }
     
@@ -364,18 +360,16 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
             if spawnTimer >= spawnTimerFixed /*change to timer*/{
                 createNewObstical(360)
                 spawnTimer = 0
-                if score <= 10 {
+                if score <= 25 {
                     spawnTimerFixed = 0.54
-                } else if score <= 25 {
-                    spawnTimerFixed = 0.47
                 } else if score <= 50 {
-                    spawnTimerFixed = 0.44
-                } else if score <= 75 {
-                    spawnTimerFixed = 0.41
+                    spawnTimerFixed = 0.47
                 } else if score <= 100 {
-                    spawnTimerFixed = 0.39
+                    spawnTimerFixed = 0.44
+                } else if score <= 150 {
+                    spawnTimerFixed = 0.41
                 } else  {
-                    spawnTimerFixed = 0.37
+                    spawnTimerFixed = 0.39
                 }
             }
             /* Remove obstacle node from obstacle layer */

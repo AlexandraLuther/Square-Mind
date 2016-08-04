@@ -22,25 +22,38 @@ class MainScene: SKScene {
     var text7: SKLabelNode!
     var text8: SKLabelNode!
     var text9: SKLabelNode!
-    var backgroundForText: SKSpriteNode!
-    var xoutbutton: MSButtonNode!
+    var title: SKLabelNode!
     var musicOn: MSButtonNode!
     var musicOff: MSButtonNode!
     var TriangleAndSquare: MSButtonNode!
     var EasyLevelButton: MSButtonNode!
     var HardLevelButton: MSButtonNode!
-    
+    var lableButtonForEasy: SKLabelNode!
+    var settingsButton: MSButtonNode!
+    var xoutofsettings: MSButtonNode!
+    var crownScores: MSButtonNode!
+    /*
+    var HighScoreLable:
+    var EasyHighScoreLable:
+    var EasyHighScore:
+    var MediumHighScoreLable:
+    var MediumHighScore:
+    var
+    var 
+    */
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         TriangleAndSquare = self.childNodeWithName("TriangleAndSquare") as! MSButtonNode
-         xoutbutton = self.childNodeWithName("xoutbutton") as! MSButtonNode
         quetionmark = self.childNodeWithName("quetionmark") as! MSButtonNode
         EasyLevelButton = self.childNodeWithName("EasyLevelButton") as! MSButtonNode
         HardLevelButton = self.childNodeWithName("HardLevelButton") as! MSButtonNode
+        settingsButton = self.childNodeWithName("settingsButton") as! MSButtonNode
+        xoutofsettings = self.childNodeWithName("xoutofsettings") as! MSButtonNode
+        crownScores = self.childNodeWithName("crownScores") as! MSButtonNode
+
         /* Set UI connections */
         buttonPlay1 = self.childNodeWithName("buttonPlay") as! MSButtonNode
-        backgroundForText = self.childNodeWithName("backgroundForText") as! SKSpriteNode!
         text1 = self.childNodeWithName("text1") as! SKLabelNode
         text2 = self.childNodeWithName("text2") as! SKLabelNode
         text3 = self.childNodeWithName("text3") as! SKLabelNode
@@ -50,19 +63,15 @@ class MainScene: SKScene {
         text7 = self.childNodeWithName("text7") as! SKLabelNode
         text8 = self.childNodeWithName("text8") as! SKLabelNode
         text9 = self.childNodeWithName("text9") as! SKLabelNode
+        title = self.childNodeWithName("title") as! SKLabelNode
         musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
         musicOff = self.childNodeWithName("musicOff") as! MSButtonNode
         
-        if gameManager.mute == true {
-            musicOn.hidden = true
-            musicOff.hidden = false
-        } else if gameManager.mute == false {
-            musicOn.hidden = false
-            musicOff.hidden = true
-        }
-        
-        xoutbutton.hidden = true
-        backgroundForText.hidden = true
+        crownScores.hidden = true
+        quetionmark.hidden = true
+        xoutofsettings.hidden = true
+        musicOff.hidden = true
+        musicOn.hidden = true
         text1.hidden = true
         text2.hidden = true
         text3.hidden = true
@@ -72,47 +81,74 @@ class MainScene: SKScene {
         text7.hidden = true
         text8.hidden = true
         text9.hidden = true
-      
-        musicOn.selectedHandler = {
-            self.gameManager.mute = true
-            self.musicOff.hidden = false
-            self.musicOn.hidden = true
-        }
-        musicOff.selectedHandler = {
-            self.gameManager.mute = false
-            self.musicOff.hidden = true
-            self.musicOn.hidden = false
-        }
-        quetionmark.selectedHandler = {
-            self.backgroundForText.hidden = false
-            self.text1.hidden = false
-            self.text2.hidden = false
-            self.text3.hidden = false
-            self.text4.hidden = false
-            self.text5.hidden = false
-            self.text6.hidden = false
-            self.text7.hidden = false
-            self.text8.hidden = false
-            self.text9.hidden = false
-          
-            self.xoutbutton.hidden = false
-            self.quetionmark.hidden = true
-        }
-        xoutbutton.selectedHandler = {
-            self.xoutbutton.hidden = true
-            self.backgroundForText.hidden = true
-            self.text1.hidden = true
-            self.text2.hidden = true
-            self.text3.hidden = true
-            self.text4.hidden = true
-            self.text5.hidden = true
-            self.text6.hidden = true
-            self.text7.hidden = true
-            self.text8.hidden = true
-            self.text9.hidden = true
+        settingsButton.selectedHandler = {
+            self.crownScores.hidden = false
+            self.title.hidden = true
+            self.settingsButton.hidden = true
+            self.EasyLevelButton.hidden = true
+            self.HardLevelButton.hidden = true
+            self.TriangleAndSquare.hidden = true
+            self.buttonPlay1.hidden = true
+            self.xoutofsettings.hidden  = false
             self.quetionmark.hidden = false
             
+            if self.gameManager.mute == true {
+                self.musicOn.hidden = true
+                self.musicOff.hidden = false
+            } else if self.gameManager.mute == false {
+                self.musicOn.hidden = false
+                self.musicOff.hidden = true
+            }
+            
+            self.musicOn.selectedHandler = {
+                self.gameManager.mute = true
+                self.musicOff.hidden = false
+                self.musicOn.hidden = true
+            }
+            self.musicOff.selectedHandler = {
+                self.gameManager.mute = false
+                self.musicOff.hidden = true
+                self.musicOn.hidden = false
+            }
+            
+            self.quetionmark.selectedHandler = {
+                if self.text1.hidden == true {
+                self.text1.hidden = false
+                self.text2.hidden = false
+                self.text3.hidden = false
+                self.text4.hidden = false
+                self.text5.hidden = false
+                self.text6.hidden = false
+                self.text7.hidden = false
+                self.text8.hidden = false
+                self.text9.hidden = false
+            } else {
+                self.text1.hidden = true
+                self.text2.hidden = true
+                self.text3.hidden = true
+                self.text4.hidden = true
+                self.text5.hidden = true
+                self.text6.hidden = true
+                self.text7.hidden = true
+                self.text8.hidden = true
+                self.text9.hidden = true
+            }
+            }
+            self.xoutofsettings.selectedHandler = {
+                self.title.hidden = false
+                self.settingsButton.hidden = false
+                self.EasyLevelButton.hidden = false
+                self.HardLevelButton.hidden = false
+                self.TriangleAndSquare.hidden = false
+                self.buttonPlay1.hidden = false
+                self.quetionmark.hidden = true
+                self.xoutofsettings.hidden = true
+                self.musicOff.hidden = true
+                self.musicOn.hidden = true
+                self.crownScores.hidden = true
+            }
         }
+        
         HardLevelButton.selectedHandler = {
             let skView = self.view as SKView!
             let scene = HardLevel(fileNamed:"HardLevel") as HardLevel!
@@ -121,7 +157,7 @@ class MainScene: SKScene {
             skView.showsDrawCount = true
             skView.showsFPS = true
             skView.presentScene(scene)
-
+            
         }
         
         TriangleAndSquare.selectedHandler = {

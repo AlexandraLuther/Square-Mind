@@ -375,7 +375,7 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
                 
                 }
             }
-            if obstaclePosition.x < -144 {
+            if obstaclePosition.x < -174 {
                 obstacle.removeFromParent()
             }
             
@@ -385,7 +385,7 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         func mustTap() {
             for obstacle in obstacleLayer.children as! [MSReferenceNodeShape] {
                 let obstaclePosition = obstacleLayer.convertPoint(obstacle.position, toNode: self)
-                if obstaclePosition.x < -140 {
+                if obstaclePosition.x < -170 {
                     
                     if obstacle.NodeTypeShapeColor1.name == "correctblock" || obstacle.triangleType1.name == "correctblock"  {
                         

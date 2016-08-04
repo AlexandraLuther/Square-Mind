@@ -174,17 +174,11 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
     
     
     func increaseSpeed() {
-        if score <= 10 {
-            scrollSpeed = 170
-        } else if score <= 25{
-            scrollSpeed = 210
-        } else if score <= 50 {
-            scrollSpeed = 240
-        } else if score <= 75 {
+        if score <= 25 {
             scrollSpeed = 270
-        } else if score <= 100 {
+        } else if score <= 50 {
             scrollSpeed = 300
-        } else if score <= 150 {
+        } else if score <= 100 {
             scrollSpeed = 330
         } else {
             scrollSpeed = 360
@@ -247,7 +241,7 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
         incorrectColor2.color = colors[4]!
         incorrectColor3.color = colors[5]!
         
-        createNewObstical(1400)
+        createNewObstical(2100)
         
         /* Setup restart button selection handler */
         endOfGameButtonRestart.selectedHandler = {
@@ -374,13 +368,9 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
             if spawnTimer >= spawnTimerFixed /*change to timer*/{
                 createNewObstical(360)
                 spawnTimer = 0
-                if score <= 10 {
-                    spawnTimerFixed = 0.54
-                } else if score <= 25 {
-                    spawnTimerFixed = 0.47
-                } else if score <= 50 {
+                if score <= 25 {
                     spawnTimerFixed = 0.44
-                } else if score <= 75 {
+                } else if score <= 50 {
                     spawnTimerFixed = 0.41
                 } else if score <= 100 {
                     spawnTimerFixed = 0.39
@@ -458,33 +448,33 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
         
         let colorOrder = Int(arc4random_uniform(4))
         if colorOrder == 0 {
-            colors[0] = SKColor(red: 204/255, green: 221/255, blue: 255/255, alpha: 1.0)
-            colors[1] = SKColor(red: 204/255, green: 170/255, blue: 255/255, alpha: 1.0)
-            colors[2] = SKColor(red: 204/255, green: 238/255, blue: 204/255, alpha: 1.0)
-            colors[3] = SKColor(red: 255/255, green: 255/255, blue: 204/255, alpha: 1.0)
-            colors[4] = SKColor(red: 255/255, green: 221/255, blue: 204/255, alpha: 1.0)
-            colors[5] = SKColor(red: 255/255, green: 187/255, blue: 204/255, alpha: 1.0)
+            colors[0] = SKColor(red: 234/255, green: 153/255, blue: 153/255, alpha: 1.0)
+            colors[1] = SKColor(red: 249/255, green: 203/255, blue: 156/255, alpha: 1.0)
+            colors[2] = SKColor(red: 182/255, green: 215/255, blue: 168/255, alpha: 1.0)
+            colors[3] = SKColor(red: 242/255, green: 151/255, blue: 196/255, alpha: 1.0)
+            colors[4] = SKColor(red: 159/255, green: 197/255, blue: 232/255, alpha: 1.0)
+            colors[5] = SKColor(red: 180/255, green: 167/255, blue: 214/255, alpha: 1.0)
         } else if colorOrder == 1 {
-            colors[0] = SKColor(red: 204/255, green: 238/255, blue: 204/255, alpha: 1.0)
-            colors[1] = SKColor(red: 255/255, green: 187/255, blue: 204/255, alpha: 1.0)
-            colors[2] = SKColor(red: 255/255, green: 221/255, blue: 255/255, alpha: 1.0)
-            colors[3] = SKColor(red: 204/255, green: 170/255, blue: 255/255, alpha: 1.0)
-            colors[4] = SKColor(red: 255/255, green: 255/255, blue: 204/255, alpha: 1.0)
-            colors[5] = SKColor(red: 204/255, green: 221/255, blue: 255/255, alpha: 1.0)
+            colors[0] = SKColor(red: 182/255, green: 215/255, blue: 168/255, alpha: 1.0)
+            colors[1] = SKColor(red: 180/255, green: 167/255, blue: 214/255, alpha: 1.0)
+            colors[2] = SKColor(red: 234/255, green: 153/255, blue: 153/255, alpha: 1.0)
+            colors[3] = SKColor(red: 249/255, green: 203/255, blue: 156/255, alpha: 1.0)
+            colors[4] = SKColor(red: 242/255, green: 151/255, blue: 196/255, alpha: 1.0)
+            colors[5] = SKColor(red: 159/255, green: 197/255, blue: 232/255, alpha: 1.0)
         } else if colorOrder == 2 {
-            colors[0] = SKColor(red: 204/255, green: 170/255, blue: 255/255, alpha: 1.0)
-            colors[1] = SKColor(red: 255/255, green: 221/255, blue: 255/255, alpha: 1.0)
-            colors[2] = SKColor(red: 255/255, green: 255/255, blue: 204/255, alpha: 1.0)
-            colors[3] = SKColor(red: 204/255, green: 221/255, blue: 255/255, alpha: 1.0)
-            colors[4] = SKColor(red: 255/255, green: 187/255, blue: 204/255, alpha: 1.0)
-            colors[5] = SKColor(red: 204/255, green: 238/255, blue: 204/255, alpha: 1.0)
+            colors[0] = SKColor(red: 249/255, green: 203/255, blue: 156/255, alpha: 1.0)
+            colors[1] = SKColor(red: 234/255, green: 153/255, blue: 153/255, alpha: 1.0)
+            colors[2] = SKColor(red: 242/255, green: 151/255, blue: 196/255, alpha: 1.0)
+            colors[3] = SKColor(red: 159/255, green: 197/255, blue: 232/255, alpha: 1.0)
+            colors[4] = SKColor(red: 180/255, green: 167/255, blue: 214/255, alpha: 1.0)
+            colors[5] = SKColor(red: 182/255, green: 215/255, blue: 168/255, alpha: 1.0)
         } else  {
-            colors[0] = SKColor(red: 204/255, green: 221/255, blue: 255/255, alpha: 1.0)
-            colors[1] = SKColor(red: 255/255, green: 255/255, blue: 204/255, alpha: 1.0)
-            colors[2] = SKColor(red: 255/255, green: 187/255, blue: 204/255, alpha: 1.0)
-            colors[3] = SKColor(red: 204/255, green: 238/255, blue: 204/255, alpha: 1.0)
-            colors[4] = SKColor(red: 255/255, green: 221/255, blue: 255/255, alpha: 1.0)
-            colors[5] = SKColor(red: 204/255, green: 170/255, blue: 255/255, alpha: 1.0)
+            colors[0] = SKColor(red: 159/255, green: 197/255, blue: 232/255, alpha: 1.0)
+            colors[1] = SKColor(red: 242/255, green: 151/255, blue: 196/255, alpha: 1.0)
+            colors[2] = SKColor(red: 180/255, green: 167/255, blue: 214/255, alpha: 1.0)
+            colors[3] = SKColor(red: 182/255, green: 215/255, blue: 168/255, alpha: 1.0)
+            colors[4] = SKColor(red: 234/255, green: 153/255, blue: 153/255, alpha: 1.0)
+            colors[5] = SKColor(red: 249/255, green: 203/255, blue: 156/255, alpha: 1.0)
         }
     }
 }
