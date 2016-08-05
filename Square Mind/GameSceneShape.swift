@@ -91,6 +91,7 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         /* Disable touch if game state is not active */
         if gameState != .Active { return }
         
+ 
         for touch in touches {
             let location  = touch.locationInNode(self)
             let node = self.nodeAtPoint(location)
@@ -138,7 +139,16 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
                     let correctsound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
                     self.runAction(correctsound)
                 }
-                
+                if score == gameManager.highScoreShape + 1 {
+                    let partical = SKEmitterNode(fileNamed: "newHighScore")!
+                    /* Convert node location (currently inside Level 1, to scene space) */
+                    partical.position.x = 76
+                    partical.position.y = 430
+                    /* Restrict total particles to reduce runtime of particle */
+                    partical.numParticlesToEmit = 15
+                    /* Add particles to scene */
+                    addChild(partical)
+                }
                 scoreLabel.text = String("\(score)")
                 node.name = "tappedblock"
                 node.hidden = true
@@ -285,6 +295,8 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             self.playButton.hidden = false
             self.playButton.selectedHandler = {
                 /* play buttton */
+                self.scoreToHighScorePt1.hidden = true
+                self.scoreToHighScorePt2.hidden = true
                 self.PauseMenuScore.hidden = true
                 self.scoreLabel.position.x = 72
                 self.scoreLabel.position.y = 432

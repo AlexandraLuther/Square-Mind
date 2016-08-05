@@ -146,7 +146,16 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
                     let correctsound = SKAction.playSoundFileNamed("correct.wav", waitForCompletion: false)
                     self.runAction(correctsound)
                 }
-                
+                if score == gameManager.highScore + 1 {
+                    let partical = SKEmitterNode(fileNamed: "newHighScore")!
+                    /* Convert node location (currently inside Level 1, to scene space) */
+                    partical.position.x = 76
+                    partical.position.y = 445
+                    /* Restrict total particles to reduce runtime of particle */
+                    partical.numParticlesToEmit = 15
+                    /* Add particles to scene */
+                    addChild(partical)
+                }
                 scoreLabel.text = String("\(score)")
                 node.name = "tappedblock"
                 node.zPosition = -30

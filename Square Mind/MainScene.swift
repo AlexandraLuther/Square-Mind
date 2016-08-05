@@ -102,6 +102,10 @@ class MainScene: SKScene {
         text8.hidden = true
         text9.hidden = true
         settingsButton.selectedHandler = {
+            self.mediumHS.text = "\(self.gameManager.highScore)"
+            self.EasyHS.text = "\(self.gameManager.highScoreLevel1)"
+            self.hardHS.text = "\(self.gameManager.highScoreLevel3)"
+            self.challengeHS.text = "\(self.gameManager.highScoreShape)"
             self.highScoreLable.hidden = false
             self.EasyHSL.hidden = false
             self.EasyHS.hidden = false
@@ -141,10 +145,6 @@ class MainScene: SKScene {
             }
             self.crownScores.selectedHandler = {
                 if self.highScoreLable.hidden == true {
-                    self.mediumHS.text = "\(self.gameManager.highScore)"
-                    self.EasyHS.text = "\(self.gameManager.highScoreLevel1)"
-                    self.hardHS.text = "\(self.gameManager.highScoreLevel3)"
-                    self.challengeHS.text = "\(self.gameManager.highScoreShape)"
                     self.text1.hidden = true
                     self.text2.hidden = true
                     self.text3.hidden = true
