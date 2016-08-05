@@ -41,6 +41,8 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
     var musicOn: MSButtonNode!
     var musicOff: MSButtonNode!
     var PauseMenuScore: SKLabelNode!
+    var scoreToHighScorePt1: SKLabelNode!
+    var scoreToHighScorePt2: SKLabelNode!
     
     var gameState: GameSceneShapeState = .Active
     
@@ -206,7 +208,11 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         obstacleLayer = self.childNodeWithName("obstacleLayer")
         endOfGameButtonRestart = self.childNodeWithName("endOfGameButtonRestart") as! MSButtonNode
         duringGameButtonRestart = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
+        scoreToHighScorePt1 = self.childNodeWithName("//scoreToHighScorePt1") as! SKLabelNode
+        scoreToHighScorePt2 = self.childNodeWithName("//scoreToHighScorePt2") as! SKLabelNode
         
+        scoreToHighScorePt1.hidden = true
+        scoreToHighScorePt2.hidden = true
         musicOn.hidden = true
         musicOff.hidden = true
         homebutton.hidden = true
@@ -242,8 +248,17 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
         
         pauseButton.selectedHandler = {
             /*pause button */
+            self.scoreToHighScorePt1.hidden = false
+            self.scoreToHighScorePt2.hidden = false
+            if self.gameManager.highScoreLevel1 < self.score {
+                self.scoreToHighScorePt1.text = "Your score is \(self.score - self.gameManager.highScoreShape)"
+                self.scoreToHighScorePt2.text = "above the preivios High Score!"
+            } else {
+                self.scoreToHighScorePt1.text = "You are \(self.gameManager.highScoreShape - self.score + 1) away from"
+                self.scoreToHighScorePt2.text = "getting the next high score"
+            }
             self.scoreLabel.position.x = 154
-            self.scoreLabel.position.y = 280
+            self.scoreLabel.position.y = 300
             self.gameState = .Pause
             self.PauseMenuScore.hidden = false
             self.scrollSpeed = 0

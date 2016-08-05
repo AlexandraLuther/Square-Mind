@@ -42,6 +42,8 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
     var musicOn: MSButtonNode!
     var musicOff: MSButtonNode!
     var PauseMenuScore: SKLabelNode!
+    var scoreToHighScorePt1: SKLabelNode!
+    var scoreToHighScorePt2: SKLabelNode!
     
     var gameState: EasyLevelState = .Active
     
@@ -215,7 +217,11 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
         obstacleLayer = self.childNodeWithName("obstacleLayer")
         endOfGameButtonRestart = self.childNodeWithName("endOfGameButtonRestart") as! MSButtonNode
         duringGameButtonRestart = self.childNodeWithName("duringGameButtonRestart") as! MSButtonNode
+        scoreToHighScorePt1 = self.childNodeWithName("//scoreToHighScorePt1") as! SKLabelNode
+        scoreToHighScorePt2 = self.childNodeWithName("//scoreToHighScorePt2") as! SKLabelNode
         
+        scoreToHighScorePt1.hidden = true
+        scoreToHighScorePt2.hidden = true
         musicOn.hidden = true
         musicOff.hidden = true
         homebutton.hidden = true
@@ -253,8 +259,17 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
         
         pauseButton.selectedHandler = {
             /*pause button */
+            self.scoreToHighScorePt1.hidden = false
+            self.scoreToHighScorePt2.hidden = false
+            if self.gameManager.highScoreLevel1 < self.score {
+                self.scoreToHighScorePt1.text = "Your score is \(self.score - self.gameManager.highScoreLevel1)"
+                self.scoreToHighScorePt2.text = "above the preivios High Score!"
+            } else {
+                self.scoreToHighScorePt1.text = "You are \(self.gameManager.highScoreLevel1 - self.score + 1) away from"
+                self.scoreToHighScorePt2.text = "getting the next high score"
+            }
             self.scoreLabel.position.x = 154
-            self.scoreLabel.position.y = 280
+            self.scoreLabel.position.y = 300
             self.PauseMenuScore.hidden = false
             self.gameState = .Pause
             self.scrollSpeed = 0
@@ -281,6 +296,8 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
             self.playButton.hidden = false
             self.playButton.selectedHandler = {
                 /* play button */
+                self.scoreToHighScorePt1.hidden = true
+                self.scoreToHighScorePt2.hidden = true
                 self.PauseMenuScore.hidden = true
                 self.scoreLabel.position.x = 72
                 self.scoreLabel.position.y = 432
@@ -373,7 +390,7 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
                 }
             }
             /* Remove obstacle node from obstacle layer */
-            if obstaclePosition.x <= -70 {
+            if obstaclePosition.x <= -72 {
                 obstacle.removeFromParent()
             }
         }

@@ -102,6 +102,15 @@ class MainScene: SKScene {
         text8.hidden = true
         text9.hidden = true
         settingsButton.selectedHandler = {
+            self.highScoreLable.hidden = false
+            self.EasyHSL.hidden = false
+            self.EasyHS.hidden = false
+            self.mediumHSL.hidden = false
+            self.mediumHS.hidden = false
+            self.hardHSL.hidden = false
+            self.hardHS.hidden = false
+            self.challengeHSL.hidden = false
+            self.challengeHS.hidden = false
             self.crownScores.hidden = false
             self.title.hidden = true
             self.settingsButton.hidden = true
@@ -154,16 +163,7 @@ class MainScene: SKScene {
                     self.hardHS.hidden = false
                     self.challengeHSL.hidden = false
                     self.challengeHS.hidden = false
-                } else {
-                    self.highScoreLable.hidden = true
-                    self.EasyHSL.hidden = true
-                    self.EasyHS.hidden = true
-                    self.mediumHSL.hidden = true
-                    self.mediumHS.hidden = true
-                    self.hardHSL.hidden = true
-                    self.hardHS.hidden = true
-                    self.challengeHSL.hidden = true
-                    self.challengeHS.hidden = true
+                
                 }
             }
             
@@ -187,17 +187,7 @@ class MainScene: SKScene {
                     self.text7.hidden = false
                     self.text8.hidden = false
                     self.text9.hidden = false
-                } else {
-                    self.text1.hidden = true
-                    self.text2.hidden = true
-                    self.text3.hidden = true
-                    self.text4.hidden = true
-                    self.text5.hidden = true
-                    self.text6.hidden = true
-                    self.text7.hidden = true
-                    self.text8.hidden = true
-                    self.text9.hidden = true
-                }
+                } 
             }
             self.xoutofsettings.selectedHandler = {
                 self.highScoreLable.hidden = true
