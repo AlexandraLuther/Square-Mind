@@ -22,6 +22,15 @@ class MainScene: SKScene {
     var text7: SKLabelNode!
     var text8: SKLabelNode!
     var text9: SKLabelNode!
+    var text10: SKLabelNode!
+    var text11: SKLabelNode!
+    var text12: SKLabelNode!
+    var text13: SKLabelNode!
+    var text14: SKLabelNode!
+    var text15: SKLabelNode!
+    var text16: SKLabelNode!
+    var text17: SKLabelNode!
+    var text18: SKLabelNode!
     var title: SKLabelNode!
     var musicOn: MSButtonNode!
     var musicOff: MSButtonNode!
@@ -53,7 +62,6 @@ class MainScene: SKScene {
         settingsButton = self.childNodeWithName("settingsButton") as! MSButtonNode
         xoutofsettings = self.childNodeWithName("xoutofsettings") as! MSButtonNode
         crownScores = self.childNodeWithName("crownScores") as! MSButtonNode
-        
         /* Set UI connections */
         buttonPlay1 = self.childNodeWithName("buttonPlay") as! MSButtonNode
         text1 = self.childNodeWithName("text1") as! SKLabelNode
@@ -65,7 +73,17 @@ class MainScene: SKScene {
         text7 = self.childNodeWithName("text7") as! SKLabelNode
         text8 = self.childNodeWithName("text8") as! SKLabelNode
         text9 = self.childNodeWithName("text9") as! SKLabelNode
+        text10 = self.childNodeWithName("text10") as! SKLabelNode
+        text11 = self.childNodeWithName("text11") as! SKLabelNode
+        text12 = self.childNodeWithName("text12") as! SKLabelNode
+        text13 = self.childNodeWithName("text13") as! SKLabelNode
+        text14 = self.childNodeWithName("text14") as! SKLabelNode
+        text15 = self.childNodeWithName("text15") as! SKLabelNode
+        text16 = self.childNodeWithName("text16") as! SKLabelNode
+        text17 = self.childNodeWithName("text17") as! SKLabelNode
+        text18 = self.childNodeWithName("text18") as! SKLabelNode
         title = self.childNodeWithName("title") as! SKLabelNode
+ 
         musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
         musicOff = self.childNodeWithName("musicOff") as! MSButtonNode
         highScoreLable = self.childNodeWithName("highScoreLable") as! SKLabelNode
@@ -101,6 +119,15 @@ class MainScene: SKScene {
         text7.hidden = true
         text8.hidden = true
         text9.hidden = true
+        text10.hidden = true
+        text11.hidden = true
+        text12.hidden = true
+        text13.hidden = true
+        text14.hidden = true
+        text15.hidden = true
+        text16.hidden = true
+        text17.hidden = true
+        text18.hidden = true
         settingsButton.selectedHandler = {
             self.mediumHS.text = "\(self.gameManager.highScore)"
             self.EasyHS.text = "\(self.gameManager.highScoreLevel1)"
@@ -154,6 +181,15 @@ class MainScene: SKScene {
                     self.text7.hidden = true
                     self.text8.hidden = true
                     self.text9.hidden = true
+                    self.text10.hidden = true
+                    self.text11.hidden = true
+                    self.text12.hidden = true
+                    self.text13.hidden = true
+                    self.text14.hidden = true
+                    self.text15.hidden = true
+                    self.text16.hidden = true
+                    self.text17.hidden = true
+                    self.text18.hidden = true
                     self.highScoreLable.hidden = false
                     self.EasyHSL.hidden = false
                     self.EasyHS.hidden = false
@@ -187,6 +223,15 @@ class MainScene: SKScene {
                     self.text7.hidden = false
                     self.text8.hidden = false
                     self.text9.hidden = false
+                    self.text10.hidden = false
+                    self.text11.hidden = false
+                    self.text12.hidden = false
+                    self.text13.hidden = false
+                    self.text14.hidden = false
+                    self.text15.hidden = false
+                    self.text16.hidden = false
+                    self.text17.hidden = false
+                    self.text18.hidden = false
                 } 
             }
             self.xoutofsettings.selectedHandler = {
@@ -208,6 +253,14 @@ class MainScene: SKScene {
                 self.text7.hidden = true
                 self.text8.hidden = true
                 self.text9.hidden = true
+                self.text10.hidden = true
+                self.text11.hidden = true
+                self.text12.hidden = true
+                self.text13.hidden = true
+                self.text14.hidden = true
+                self.text15.hidden = true
+                self.text16.hidden = true
+                self.text17.hidden = true
                 self.title.hidden = false
                 self.settingsButton.hidden = false
                 self.EasyLevelButton.hidden = false
