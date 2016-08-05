@@ -67,7 +67,7 @@
 		B8046D881D49368C0050C0FE /* CorrectColor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CorrectColor.sks; sourceTree = "<group>"; };
 		B8046D891D49368C0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		B8046D921D4953BE0050C0FE /* wrongpt1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt1.sks; sourceTree = "<group>"; };
-		B8046D931D4953BE0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = ../spark.png; sourceTree = "<group>"; };
+		B8046D931D4953BE0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		B8046D961D4955E50050C0FE /* wrongpt2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt2.sks; sourceTree = "<group>"; };
 		B8046D981D4956E60050C0FE /* wrongpt4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt4.sks; sourceTree = "<group>"; };
 		B8046D9A1D49570C0050C0FE /* wrongpt3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt3.sks; sourceTree = "<group>"; };
@@ -193,6 +193,7 @@
 				B8046D961D4955E50050C0FE /* wrongpt2.sks */,
 				B8046D9A1D49570C0050C0FE /* wrongpt3.sks */,
 				B8046D981D4956E60050C0FE /* wrongpt4.sks */,
+				B8046D931D4953BE0050C0FE /* spark.png */,
 			);
 			name = "wrong sparklits";
 			path = ..;
@@ -212,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				B8298BE01D4FFDB500DAD6F9 /* wrong sparklits */,
-				B8046D931D4953BE0050C0FE /* spark.png */,
 				B811381E1D550379004158D7 /* newHighScore.sks */,
 				B818CBE71D5167FC008D29F9 /* beathighscore.sks */,
 				B8046D881D49368C0050C0FE /* CorrectColor.sks */,
