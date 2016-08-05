@@ -31,6 +31,24 @@ class MainScene: SKScene {
     var text16: SKLabelNode!
     var text17: SKLabelNode!
     var text18: SKLabelNode!
+    var text1g: SKLabelNode!
+    var text2g: SKLabelNode!
+    var text3g: SKLabelNode!
+    var text4g: SKLabelNode!
+    var text5g: SKLabelNode!
+    var text6g: SKLabelNode!
+    var text7g: SKLabelNode!
+    var text8g: SKLabelNode!
+    var text9g: SKLabelNode!
+    var text10g: SKLabelNode!
+    var text11g: SKLabelNode!
+    var text12g: SKLabelNode!
+    var text13g: SKLabelNode!
+    var text14g: SKLabelNode!
+    var text15g: SKLabelNode!
+    var text16g: SKLabelNode!
+    var text17g: SKLabelNode!
+    var text18g: SKLabelNode!
     var title: SKLabelNode!
     var musicOn: MSButtonNode!
     var musicOff: MSButtonNode!
@@ -82,6 +100,24 @@ class MainScene: SKScene {
         text16 = self.childNodeWithName("text16") as! SKLabelNode
         text17 = self.childNodeWithName("text17") as! SKLabelNode
         text18 = self.childNodeWithName("text18") as! SKLabelNode
+        text1g = self.childNodeWithName("text1g") as! SKLabelNode
+        text2g = self.childNodeWithName("text2g") as! SKLabelNode
+        text3g = self.childNodeWithName("text3g") as! SKLabelNode
+        text4g = self.childNodeWithName("text4g") as! SKLabelNode
+        text5g = self.childNodeWithName("text5g") as! SKLabelNode
+        text6g = self.childNodeWithName("text6g") as! SKLabelNode
+        text7g = self.childNodeWithName("text7g") as! SKLabelNode
+        text8g = self.childNodeWithName("text8g") as! SKLabelNode
+        text9g = self.childNodeWithName("text9g") as! SKLabelNode
+        text10g = self.childNodeWithName("text10g") as! SKLabelNode
+        text11g = self.childNodeWithName("text11g") as! SKLabelNode
+        text12g = self.childNodeWithName("text12g") as! SKLabelNode
+        text13g = self.childNodeWithName("text13g") as! SKLabelNode
+        text14g = self.childNodeWithName("text14g") as! SKLabelNode
+        text15g = self.childNodeWithName("text15g") as! SKLabelNode
+        text16g = self.childNodeWithName("text16") as! SKLabelNode
+        text17g = self.childNodeWithName("text17g") as! SKLabelNode
+        text18g = self.childNodeWithName("text18g") as! SKLabelNode
         title = self.childNodeWithName("title") as! SKLabelNode
  
         musicOn = self.childNodeWithName("musicOn") as! MSButtonNode
@@ -128,6 +164,36 @@ class MainScene: SKScene {
         text16.hidden = true
         text17.hidden = true
         text18.hidden = true
+        text1g.hidden = true
+        text2g.hidden = true
+        text3g.hidden = true
+        text4g.hidden = true
+        text5g.hidden = true
+        text6g.hidden = true
+        text7g.hidden = true
+        text8g.hidden = true
+        text9g.hidden = true
+        text10g.hidden = true
+        text11g.hidden = true
+        text12g.hidden = true
+        text13g.hidden = true
+        text14g.hidden = true
+        text15g.hidden = true
+        text16g.hidden = true
+        text17g.hidden = true
+        text18g.hidden = true
+        text2.position.x = 30
+        text2g.position.x = 30.5
+        text4g.position.x = 30.5
+        text4.position.x = 30
+        text8g.position.x = 30.5
+        text8.position.x = 30
+        text11.position.x = 30
+        text11g.position.x = 30.5
+        text13.position.x = 30
+        text13g.position.x = 30.5
+        text17.position.x = 30
+        text17g.position.x = 30.5
         settingsButton.selectedHandler = {
             self.mediumHS.text = "\(self.gameManager.highScore)"
             self.EasyHS.text = "\(self.gameManager.highScoreLevel1)"
@@ -190,6 +256,25 @@ class MainScene: SKScene {
                     self.text16.hidden = true
                     self.text17.hidden = true
                     self.text18.hidden = true
+                    self.text1g.hidden = true
+                    self.text2g.hidden = true
+                    self.text3g.hidden = true
+                    self.text4g.hidden = true
+                    self.text5g.hidden = true
+                    self.text6g.hidden = true
+                    self.text7g.hidden = true
+                    self.text8g.hidden = true
+                    self.text9g.hidden = true
+                    self.text10g.hidden = true
+                    self.text11g.hidden = true
+                    self.text12g.hidden = true
+                    self.text13g.hidden = true
+                    self.text14g.hidden = true
+                    self.text15g.hidden = true
+                    self.text16g.hidden = true
+                    self.text17g.hidden = true
+                    self.text18g.hidden = true
+
                     self.highScoreLable.hidden = false
                     self.EasyHSL.hidden = false
                     self.EasyHS.hidden = false
@@ -232,6 +317,24 @@ class MainScene: SKScene {
                     self.text16.hidden = false
                     self.text17.hidden = false
                     self.text18.hidden = false
+                    self.text1g.hidden = false
+                    self.text2g.hidden = false
+                    self.text3g.hidden = false
+                    self.text4g.hidden = false
+                    self.text5g.hidden = false
+                    self.text6g.hidden = false
+                    self.text7g.hidden = false
+                    self.text8g.hidden = false
+                    self.text9g.hidden = false
+                    self.text10g.hidden = false
+                    self.text11g.hidden = false
+                    self.text12g.hidden = false
+                    self.text13g.hidden = false
+                    self.text14g.hidden = false
+                    self.text15g.hidden = false
+                    self.text16g.hidden = false
+                    self.text17g.hidden = false
+                    self.text18g.hidden = false
                 } 
             }
             self.xoutofsettings.selectedHandler = {
@@ -261,6 +364,24 @@ class MainScene: SKScene {
                 self.text15.hidden = true
                 self.text16.hidden = true
                 self.text17.hidden = true
+                self.text1g.hidden = true
+                self.text2g.hidden = true
+                self.text3g.hidden = true
+                self.text4g.hidden = true
+                self.text5g.hidden = true
+                self.text6g.hidden = true
+                self.text7g.hidden = true
+                self.text8g.hidden = true
+                self.text9g.hidden = true
+                self.text10g.hidden = true
+                self.text11g.hidden = true
+                self.text12g.hidden = true
+                self.text13g.hidden = true
+                self.text14g.hidden = true
+                self.text15g.hidden = true
+                self.text16g.hidden = true
+                self.text17g.hidden = true
+                self.text18g.hidden = true
                 self.title.hidden = false
                 self.settingsButton.hidden = false
                 self.EasyLevelButton.hidden = false
