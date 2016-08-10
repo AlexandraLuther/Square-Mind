@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mixpanel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+        //Chartboost.startWithAppId("57a8acf4f6cd457cd1cb3131", appSignature: "6fe00af24b0fc43df9956b82b4932b0394035940", delegate: nil)
          GameManager.sharedInstance
+        
+        Mixpanel.sharedInstanceWithToken("9b96e2b5541d6936b79d168cb1b4601d")
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("App launched")
+        
         
         return true
     }

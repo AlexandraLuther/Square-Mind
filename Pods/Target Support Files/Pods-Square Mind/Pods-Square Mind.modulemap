@@ -1,0 +1,6 @@
+framework module Pods_Square_Mind {
+  umbrella header "Pods-Square Mind-umbrella.h"
+
+  export *
+  module * { export * }
+}

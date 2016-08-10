@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import Mixpanel
 
 enum GameSceneShapeState {
     case Active, GameOver, Pause
@@ -47,6 +48,10 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
     var gameState: GameSceneShapeState = .Active
     
     func didBeginContact() {
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("Level Played", properties: ["Level Type": 4])
+        // Show rewarded video pre-roll message and video ad at location MainMenu. See Chartboost.h for available location options.
+        //Chartboost.showRewardedVideo(CBLocationMainMenu)
         /* when game is over */
         if gameManager.highScoreShape < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!

@@ -364,6 +364,7 @@ class MainScene: SKScene {
                 self.text15.hidden = true
                 self.text16.hidden = true
                 self.text17.hidden = true
+                self.text18.hidden = true
                 self.text1g.hidden = true
                 self.text2g.hidden = true
                 self.text3g.hidden = true

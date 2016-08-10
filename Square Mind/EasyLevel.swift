@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import Mixpanel
 
 enum EasyLevelState {
     case Active, GameOver, Pause
@@ -48,6 +49,8 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
     var gameState: EasyLevelState = .Active
     
     func didBeginContact() {
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("Level Played", properties: ["Level Type": 1])
         /* called when game ends */
         if gameManager.highScoreLevel1 < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!
@@ -74,6 +77,7 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
             self.musicOff.hidden = true
             self.musicOn.hidden = false
         }
+        
         pauseButton.hidden = true
         homebutton.hidden = false
         highscoreput.hidden = false
@@ -259,6 +263,8 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
         
         /* Setup restart button selection handler */
         endOfGameButtonRestart.selectedHandler = {
+            // Show interstitial at location HomeScreen. See Chartboost.h for available location options.
+            //Chartboost.showInterstitial(CBLocationHomeScreen)
             let skView = self.view as SKView!
             let scene = EasyLevel(fileNamed:"EasyLevel") as EasyLevel!
             scene.scaleMode = .AspectFill

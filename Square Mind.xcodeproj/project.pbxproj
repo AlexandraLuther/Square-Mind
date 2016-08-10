@@ -16,6 +16,10 @@
 		B8046D9B1D49570C0050C0FE /* wrongpt3.sks in Resources */ = {isa = PBXBuildFile; fileRef = B8046D9A1D49570C0050C0FE /* wrongpt3.sks */; };
 		B8046DA81D49814C0050C0FE /* fail.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B8046DA71D49814C0050C0FE /* fail.mp3 */; };
 		B8046DAA1D4A6EB50050C0FE /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = B8046DA91D4A6EB50050C0FE /* correct.wav */; };
+		B8107D0A1D58E77A00D9624E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8107D091D58E77A00D9624E /* StoreKit.framework */; };
+		B8107D0C1D58E78100D9624E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8107D0B1D58E78100D9624E /* Foundation.framework */; };
+		B8107D0E1D58E78D00D9624E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8107D0D1D58E78D00D9624E /* CoreGraphics.framework */; };
+		B8107D101D58E79B00D9624E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8107D0F1D58E79B00D9624E /* UIKit.framework */; };
 		B811381F1D550379004158D7 /* newHighScore.sks in Resources */ = {isa = PBXBuildFile; fileRef = B811381E1D550379004158D7 /* newHighScore.sks */; };
 		B81353B81D480EDA0004CFA2 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81353B71D480EDA0004CFA2 /* MainScene.swift */; };
 		B818CBE81D5167FC008D29F9 /* beathighscore.sks in Resources */ = {isa = PBXBuildFile; fileRef = B818CBE71D5167FC008D29F9 /* beathighscore.sks */; };
@@ -61,9 +65,11 @@
 		B8B0775D1D35B802009AB041 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8B0775B1D35B802009AB041 /* Main.storyboard */; };
 		B8B0775F1D35B802009AB041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8B0775E1D35B802009AB041 /* Assets.xcassets */; };
 		B8B077621D35B802009AB041 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8B077601D35B802009AB041 /* LaunchScreen.storyboard */; };
+		BD727176987DAD88405A8BFC /* Pods_Square_Mind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAABCCDC591BF143611561ED /* Pods_Square_Mind.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840CC2A5BA3813B3BABB79AB /* Pods-Square Mind.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Square Mind.release.xcconfig"; path = "Pods/Target Support Files/Pods-Square Mind/Pods-Square Mind.release.xcconfig"; sourceTree = "<group>"; };
 		B8046D881D49368C0050C0FE /* CorrectColor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CorrectColor.sks; sourceTree = "<group>"; };
 		B8046D891D49368C0050C0FE /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		B8046D921D4953BE0050C0FE /* wrongpt1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt1.sks; sourceTree = "<group>"; };
@@ -73,6 +79,11 @@
 		B8046D9A1D49570C0050C0FE /* wrongpt3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt3.sks; sourceTree = "<group>"; };
 		B8046DA71D49814C0050C0FE /* fail.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fail.mp3; sourceTree = "<group>"; };
 		B8046DA91D4A6EB50050C0FE /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
+		B8107D091D58E77A00D9624E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B8107D0B1D58E78100D9624E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B8107D0D1D58E78D00D9624E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B8107D0F1D58E79B00D9624E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B8107D111D58E86600D9624E /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		B811381E1D550379004158D7 /* newHighScore.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = newHighScore.sks; path = ../newHighScore.sks; sourceTree = "<group>"; };
 		B81353B71D480EDA0004CFA2 /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		B818CBE71D5167FC008D29F9 /* beathighscore.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = beathighscore.sks; path = ../beathighscore.sks; sourceTree = "<group>"; };
@@ -121,6 +132,8 @@
 		B8B0775E1D35B802009AB041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8B077611D35B802009AB041 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8B077631D35B802009AB041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9DCBC33A8A1FA41B5B2E8E2 /* Pods-Square Mind.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Square Mind.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Square Mind/Pods-Square Mind.debug.xcconfig"; sourceTree = "<group>"; };
+		EAABCCDC591BF143611561ED /* Pods_Square_Mind.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Square_Mind.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,12 +141,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8107D101D58E79B00D9624E /* UIKit.framework in Frameworks */,
+				B8107D0E1D58E78D00D9624E /* CoreGraphics.framework in Frameworks */,
+				B8107D0C1D58E78100D9624E /* Foundation.framework in Frameworks */,
+				B8107D0A1D58E77A00D9624E /* StoreKit.framework in Frameworks */,
+				BD727176987DAD88405A8BFC /* Pods_Square_Mind.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7455DFD1D7D70C42A21B0219 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D9DCBC33A8A1FA41B5B2E8E2 /* Pods-Square Mind.debug.xcconfig */,
+				840CC2A5BA3813B3BABB79AB /* Pods-Square Mind.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B81981D31D427C9900A93D1D /* SKTUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,8 +273,11 @@
 		B8B077471D35B802009AB041 = {
 			isa = PBXGroup;
 			children = (
+				B8107D111D58E86600D9624E /* Header.h */,
 				B8B077521D35B802009AB041 /* Square Mind */,
 				B8B077511D35B802009AB041 /* Products */,
+				7455DFD1D7D70C42A21B0219 /* Pods */,
+				F605D4EB6BD379105C6ABD41 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -276,7 +306,11 @@
 				B87561E61D4BBAA000C97099 /* SwiftyUserDefaults.h */,
 				B820BF0D1D36A238005710A6 /* CountdownLabel.swift */,
 				B8B077591D35B802009AB041 /* GameViewController.swift */,
+				B8107D0D1D58E78D00D9624E /* CoreGraphics.framework */,
+				B8107D0F1D58E79B00D9624E /* UIKit.framework */,
 				B8B0775B1D35B802009AB041 /* Main.storyboard */,
+				B8107D091D58E77A00D9624E /* StoreKit.framework */,
+				B8107D0B1D58E78100D9624E /* Foundation.framework */,
 				B8B0775E1D35B802009AB041 /* Assets.xcassets */,
 				B8298BDF1D4FF9FB00DAD6F9 /* sounds */,
 				B83C7D2A1D38496200D29D40 /* Utils */,
@@ -286,6 +320,14 @@
 			path = "Square Mind";
 			sourceTree = "<group>";
 		};
+		F605D4EB6BD379105C6ABD41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAABCCDC591BF143611561ED /* Pods_Square_Mind.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -293,9 +335,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8B077661D35B802009AB041 /* Build configuration list for PBXNativeTarget "Square Mind" */;
 			buildPhases = (
+				0D7C28274731B1D6631E6052 /* [CP] Check Pods Manifest.lock */,
 				B8B0774C1D35B802009AB041 /* Sources */,
 				B8B0774D1D35B802009AB041 /* Frameworks */,
 				B8B0774E1D35B802009AB041 /* Resources */,
+				A2B7CBA9A39357AF1BAE1576 /* [CP] Embed Pods Frameworks */,
+				E5D8D16922426D21367D5518 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -318,7 +363,7 @@
 				TargetAttributes = {
 					B8B0774F1D35B802009AB041 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = H29PWX8G5E;
+						DevelopmentTeam = 6ADF8H8R44;
 					};
 				};
 			};
@@ -378,6 +423,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D7C28274731B1D6631E6052 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A2B7CBA9A39357AF1BAE1576 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Square Mind/Pods-Square Mind-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5D8D16922426D21367D5518 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Square Mind/Pods-Square Mind-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B8B0774C1D35B802009AB041 /* Sources */ = {
@@ -519,29 +612,57 @@
 		};
 		B8B077671D35B802009AB041 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9DCBC33A8A1FA41B5B2E8E2 /* Pods-Square Mind.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Square",
+					"Mind/Chartboost-iOS-6.4.7",
+					2,
+					"$(PROJECT_DIR)/Square",
+					Mind,
+					"$(PROJECT_DIR)/Square",
+					Mind,
+					"$(PROJECT_DIR)/Square",
+					Mind,
+				);
 				INFOPLIST_FILE = "Square Mind/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.superwaffles.Square-Mind";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Superwaffles.SquareMind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Header.h";
 			};
 			name = Debug;
 		};
 		B8B077681D35B802009AB041 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 840CC2A5BA3813B3BABB79AB /* Pods-Square Mind.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Square",
+					"Mind/Chartboost-iOS-6.4.7",
+					2,
+					"$(PROJECT_DIR)/Square",
+					Mind,
+					"$(PROJECT_DIR)/Square",
+					Mind,
+					"$(PROJECT_DIR)/Square",
+					Mind,
+				);
 				INFOPLIST_FILE = "Square Mind/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.superwaffles.Square-Mind";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Superwaffles.SquareMind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Header.h";
 			};
 			name = Release;
 		};

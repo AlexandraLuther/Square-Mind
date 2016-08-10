@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import Mixpanel
 
 enum HardLevelState {
     case Active, GameOver, Pause
@@ -49,6 +50,10 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
     var gameState: HardLevelState = .Active
     
     func didBeginContact() {
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("Level Played", properties: ["Level Type": 3])
+        // Show rewarded video pre-roll message and video ad at location MainMenu. See Chartboost.h for available location options.
+        //Chartboost.showRewardedVideo(CBLocationMainMenu)
         /* called when game ends */
         if gameManager.highScoreLevel3 < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!
