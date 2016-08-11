@@ -9,6 +9,8 @@
 import SpriteKit
 import Mixpanel
 
+import GameKit
+
 enum HardLevelState {
     case Active, GameOver, Pause
 }
@@ -53,8 +55,7 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("Level Played", properties: ["Level Type": 3])
         // Show rewarded video pre-roll message and video ad at location MainMenu. See Chartboost.h for available location options.
-        //Chartboost.showRewardedVideo(CBLocationMainMenu)
-        /* called when game ends */
+        Chartboost.showInterstitial(CBLocationHomeScreen)
         if gameManager.highScoreLevel3 < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!
             partical.position.x = 0
@@ -62,6 +63,19 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
             partical.numParticlesToEmit = 600
             addChild(partical)
             gameManager.highScoreLevel3 = score
+            let SquareMindHardLevelHighScore = "SquareMindHardLevelHighScore"
+            let sScore = GKScore(leaderboardIdentifier: SquareMindHardLevelHighScore)
+            sScore.value = Int64(score)
+            
+            GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else {
+                    print("Score submitted")
+                    
+                }
+            })
+
         }
         
         if self.gameManager.mute == true {
@@ -210,8 +224,8 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
             let scene = MainScene(fileNamed:"MainScene") as MainScene!
             scene.scaleMode = .AspectFill
             skView.showsPhysics = true
-            skView.showsDrawCount = true
-            skView.showsFPS = true
+            skView.showsDrawCount = false
+            skView.showsFPS = false
             skView.presentScene(scene)
         }
         
@@ -278,12 +292,12 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
             /*pause button */
             self.scoreToHighScorePt1.hidden = false
             self.scoreToHighScorePt2.hidden = false
-            if self.gameManager.highScoreLevel1 < self.score {
-                self.scoreToHighScorePt1.text = "Your score is \(self.score - self.gameManager.highScoreLevel3)"
-                self.scoreToHighScorePt2.text = "above the preivios High Score!"
-            } else {
+            if  self.score < self.gameManager.highScoreLevel3 {
                 self.scoreToHighScorePt1.text = "You are \(self.gameManager.highScoreLevel3 - self.score + 1) away from"
                 self.scoreToHighScorePt2.text = "getting the next high score"
+            } else {
+                self.scoreToHighScorePt1.text = "Your score is \(self.score - self.gameManager.highScoreLevel3)"
+                self.scoreToHighScorePt2.text = "above the preivios High Score!"
             }
             self.scoreLabel.position.x = 154
             self.scoreLabel.position.y = 300

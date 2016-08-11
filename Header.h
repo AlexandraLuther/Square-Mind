@@ -10,7 +10,7 @@
 #define Header_h
 
 #import <UIKit/UIKit.h>
-//#import <Chartboost/Chartboost.h>
+#import <Chartboost/Chartboost.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <AdSupport/AdSupport.h>
 #import <UIKit/UIKit.h>

@@ -7,8 +7,9 @@
 //
 
 import SpriteKit
+import GameKit
 
-class MainScene: SKScene {
+class MainScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     let gameManager = GameManager.sharedInstance
     /* UI Connections */
     var buttonPlay1: MSButtonNode!
@@ -68,8 +69,17 @@ class MainScene: SKScene {
     var hardHS: SKLabelNode!
     var challengeHSL: SKLabelNode!
     var challengeHS: SKLabelNode!
+    var gameCenter: MSButtonNode!
     
-    
+    func showLeader() {
+        let viewControllerVar = self.view?.window?.rootViewController
+        let gKGCViewController = GKGameCenterViewController()
+        gKGCViewController.gameCenterDelegate = self
+        viewControllerVar?.presentViewController(gKGCViewController, animated: true, completion: nil)
+    }
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -82,6 +92,7 @@ class MainScene: SKScene {
         crownScores = self.childNodeWithName("crownScores") as! MSButtonNode
         /* Set UI connections */
         buttonPlay1 = self.childNodeWithName("buttonPlay") as! MSButtonNode
+        gameCenter = self.childNodeWithName("gameCenter") as! MSButtonNode
         text1 = self.childNodeWithName("text1") as! SKLabelNode
         text2 = self.childNodeWithName("text2") as! SKLabelNode
         text3 = self.childNodeWithName("text3") as! SKLabelNode
@@ -132,6 +143,7 @@ class MainScene: SKScene {
         challengeHSL = self.childNodeWithName("challengeHSL") as! SKLabelNode
         challengeHS = self.childNodeWithName("challengeHS") as! SKLabelNode
         
+        gameCenter.hidden = true
         highScoreLable.hidden = true
         EasyHSL.hidden = true
         EasyHS.hidden = true
@@ -217,6 +229,11 @@ class MainScene: SKScene {
             self.buttonPlay1.hidden = true
             self.xoutofsettings.hidden  = false
             self.quetionmark.hidden = false
+            self.gameCenter.hidden = false
+            
+            self.gameCenter.selectedHandler = {
+                self.showLeader()
+            }
             
             if self.gameManager.mute == true {
                 self.musicOn.hidden = true
@@ -274,7 +291,7 @@ class MainScene: SKScene {
                     self.text16g.hidden = true
                     self.text17g.hidden = true
                     self.text18g.hidden = true
-
+                    self.gameCenter.hidden = false
                     self.highScoreLable.hidden = false
                     self.EasyHSL.hidden = false
                     self.EasyHS.hidden = false
@@ -290,6 +307,7 @@ class MainScene: SKScene {
             
             self.quetionmark.selectedHandler = {
                 if self.text1.hidden == true {
+                    self.gameCenter.hidden = true
                     self.highScoreLable.hidden = true
                     self.EasyHSL.hidden = true
                     self.EasyHS.hidden = true
@@ -338,6 +356,7 @@ class MainScene: SKScene {
                 } 
             }
             self.xoutofsettings.selectedHandler = {
+                self.gameCenter.hidden = true
                 self.highScoreLable.hidden = true
                 self.EasyHSL.hidden = true
                 self.EasyHS.hidden = true
@@ -403,7 +422,7 @@ class MainScene: SKScene {
             scene.scaleMode = .AspectFill
             skView.showsPhysics = true
             skView.showsDrawCount = true
-            skView.showsFPS = true
+            skView.showsFPS = false
             skView.presentScene(scene)
             
         }
@@ -414,7 +433,7 @@ class MainScene: SKScene {
             scene.scaleMode = .AspectFill
             skView.showsPhysics = true
             skView.showsDrawCount = true
-            skView.showsFPS = true
+            skView.showsFPS = false
             skView.presentScene(scene)
         }
         
@@ -424,7 +443,7 @@ class MainScene: SKScene {
             scene.scaleMode = .AspectFill
             skView.showsPhysics = true
             skView.showsDrawCount = true
-            skView.showsFPS = true
+            skView.showsFPS = false
             skView.presentScene(scene)
         }
         
@@ -434,7 +453,7 @@ class MainScene: SKScene {
             scene.scaleMode = .AspectFill
             skView.showsPhysics = true
             skView.showsDrawCount = true
-            skView.showsFPS = true
+            skView.showsFPS = false
             skView.presentScene(scene)
         }
     }

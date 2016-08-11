@@ -16,6 +16,7 @@
 		B8046D9B1D49570C0050C0FE /* wrongpt3.sks in Resources */ = {isa = PBXBuildFile; fileRef = B8046D9A1D49570C0050C0FE /* wrongpt3.sks */; };
 		B8046DA81D49814C0050C0FE /* fail.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B8046DA71D49814C0050C0FE /* fail.mp3 */; };
 		B8046DAA1D4A6EB50050C0FE /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = B8046DA91D4A6EB50050C0FE /* correct.wav */; };
+		B80C4B431D5D043300278ACC /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C4B421D5D043300278ACC /* GameKit.framework */; };
 		B8107D0A1D58E77A00D9624E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8107D091D58E77A00D9624E /* StoreKit.framework */; };
 		B8107D0C1D58E78100D9624E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8107D0B1D58E78100D9624E /* Foundation.framework */; };
 		B8107D0E1D58E78D00D9624E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8107D0D1D58E78D00D9624E /* CoreGraphics.framework */; };
@@ -65,6 +66,7 @@
 		B8B0775D1D35B802009AB041 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8B0775B1D35B802009AB041 /* Main.storyboard */; };
 		B8B0775F1D35B802009AB041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8B0775E1D35B802009AB041 /* Assets.xcassets */; };
 		B8B077621D35B802009AB041 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8B077601D35B802009AB041 /* LaunchScreen.storyboard */; };
+		B8CC979E1D5D31A800F31908 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8CC979D1D5D31A800F31908 /* Chartboost.framework */; };
 		BD727176987DAD88405A8BFC /* Pods_Square_Mind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAABCCDC591BF143611561ED /* Pods_Square_Mind.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +81,7 @@
 		B8046D9A1D49570C0050C0FE /* wrongpt3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = wrongpt3.sks; sourceTree = "<group>"; };
 		B8046DA71D49814C0050C0FE /* fail.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fail.mp3; sourceTree = "<group>"; };
 		B8046DA91D4A6EB50050C0FE /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
+		B80C4B421D5D043300278ACC /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		B8107D091D58E77A00D9624E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B8107D0B1D58E78100D9624E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B8107D0D1D58E78D00D9624E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -132,6 +135,7 @@
 		B8B0775E1D35B802009AB041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8B077611D35B802009AB041 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8B077631D35B802009AB041 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8CC979D1D5D31A800F31908 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
 		D9DCBC33A8A1FA41B5B2E8E2 /* Pods-Square Mind.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Square Mind.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Square Mind/Pods-Square Mind.debug.xcconfig"; sourceTree = "<group>"; };
 		EAABCCDC591BF143611561ED /* Pods_Square_Mind.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Square_Mind.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -141,8 +145,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8CC979E1D5D31A800F31908 /* Chartboost.framework in Frameworks */,
 				B8107D101D58E79B00D9624E /* UIKit.framework in Frameworks */,
 				B8107D0E1D58E78D00D9624E /* CoreGraphics.framework in Frameworks */,
+				B80C4B431D5D043300278ACC /* GameKit.framework in Frameworks */,
 				B8107D0C1D58E78100D9624E /* Foundation.framework in Frameworks */,
 				B8107D0A1D58E77A00D9624E /* StoreKit.framework in Frameworks */,
 				BD727176987DAD88405A8BFC /* Pods_Square_Mind.framework in Frameworks */,
@@ -159,6 +165,18 @@
 				840CC2A5BA3813B3BABB79AB /* Pods-Square Mind.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B80C4ACF1D5CDB6100278ACC /* Chartboost-iOS-6.4.7 */ = {
+			isa = PBXGroup;
+			children = (
+				B8CC979D1D5D31A800F31908 /* Chartboost.framework */,
+				B8107D0B1D58E78100D9624E /* Foundation.framework */,
+				B8107D091D58E77A00D9624E /* StoreKit.framework */,
+				B8107D0F1D58E79B00D9624E /* UIKit.framework */,
+				B8107D0D1D58E78D00D9624E /* CoreGraphics.framework */,
+			);
+			path = "Chartboost-iOS-6.4.7";
 			sourceTree = "<group>";
 		};
 		B81981D31D427C9900A93D1D /* SKTUtils */ = {
@@ -306,11 +324,8 @@
 				B87561E61D4BBAA000C97099 /* SwiftyUserDefaults.h */,
 				B820BF0D1D36A238005710A6 /* CountdownLabel.swift */,
 				B8B077591D35B802009AB041 /* GameViewController.swift */,
-				B8107D0D1D58E78D00D9624E /* CoreGraphics.framework */,
-				B8107D0F1D58E79B00D9624E /* UIKit.framework */,
+				B80C4ACF1D5CDB6100278ACC /* Chartboost-iOS-6.4.7 */,
 				B8B0775B1D35B802009AB041 /* Main.storyboard */,
-				B8107D091D58E77A00D9624E /* StoreKit.framework */,
-				B8107D0B1D58E78100D9624E /* Foundation.framework */,
 				B8B0775E1D35B802009AB041 /* Assets.xcassets */,
 				B8298BDF1D4FF9FB00DAD6F9 /* sounds */,
 				B83C7D2A1D38496200D29D40 /* Utils */,
@@ -323,6 +338,7 @@
 		F605D4EB6BD379105C6ABD41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B80C4B421D5D043300278ACC /* GameKit.framework */,
 				EAABCCDC591BF143611561ED /* Pods_Square_Mind.framework */,
 			);
 			name = Frameworks;
@@ -364,6 +380,11 @@
 					B8B0774F1D35B802009AB041 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 6ADF8H8R44;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -628,6 +649,12 @@
 					Mind,
 					"$(PROJECT_DIR)/Square",
 					Mind,
+					"$(PROJECT_DIR)/Square",
+					"Mind/Chartboost-iOS-6.4.7",
+					"$(PROJECT_DIR)/Square",
+					"Mind/Chartboost-iOS-6.4.7",
+					"$(PROJECT_DIR)/Square",
+					"Mind/Chartboost-iOS-6.4.7",
 				);
 				INFOPLIST_FILE = "Square Mind/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -656,6 +683,12 @@
 					Mind,
 					"$(PROJECT_DIR)/Square",
 					Mind,
+					"$(PROJECT_DIR)/Square",
+					"Mind/Chartboost-iOS-6.4.7",
+					"$(PROJECT_DIR)/Square",
+					"Mind/Chartboost-iOS-6.4.7",
+					"$(PROJECT_DIR)/Square",
+					"Mind/Chartboost-iOS-6.4.7",
 				);
 				INFOPLIST_FILE = "Square Mind/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

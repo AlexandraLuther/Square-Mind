@@ -8,6 +8,7 @@
 
 import SpriteKit
 import Mixpanel
+import GameKit
 
 enum GameSceneShapeState {
     case Active, GameOver, Pause
@@ -50,9 +51,7 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
     func didBeginContact() {
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("Level Played", properties: ["Level Type": 4])
-        // Show rewarded video pre-roll message and video ad at location MainMenu. See Chartboost.h for available location options.
-        //Chartboost.showRewardedVideo(CBLocationMainMenu)
-        /* when game is over */
+        Chartboost.showInterstitial(CBLocationHomeScreen)
         if gameManager.highScoreShape < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!
             partical.position.x = 0
@@ -60,7 +59,22 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             partical.numParticlesToEmit = 600
             addChild(partical)
             gameManager.highScoreShape = score
+            
+            let SquareMindChallengeLevelHighScore = "SquareMindChallengeLevelHighScore"
+                let sScore = GKScore(leaderboardIdentifier: SquareMindChallengeLevelHighScore)
+                sScore.value = Int64(score)
+                
+                GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+                    if error != nil {
+                        print(error!.localizedDescription)
+                    } else {
+                        print("Score submitted")
+                        
+                    }
+                })
+            
         }
+        
         if self.gameManager.mute == true {
             self.musicOn.hidden = true
             self.musicOff.hidden = false
@@ -203,8 +217,10 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             let scene = MainScene(fileNamed:"MainScene") as MainScene!
             scene.scaleMode = .AspectFill
             skView.showsPhysics = true
-            skView.showsDrawCount = true
-            skView.showsFPS = true
+            skView.showsDrawCount = false
+
+
+            skView.showsFPS = false
             skView.presentScene(scene)
         }
     }
@@ -265,7 +281,7 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
             /*pause button */
             self.scoreToHighScorePt1.hidden = false
             self.scoreToHighScorePt2.hidden = false
-            if self.gameManager.highScoreLevel1 < self.score {
+            if self.gameManager.highScoreShape < self.score {
                 self.scoreToHighScorePt1.text = "Your score is \(self.score - self.gameManager.highScoreShape)"
                 self.scoreToHighScorePt2.text = "above the preivios High Score!"
             } else {

@@ -8,6 +8,7 @@
 
 import SpriteKit
 import Mixpanel
+import GameKit
 
 enum GameScene1State {
     case Active, GameOver, Pause
@@ -52,8 +53,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("Level Played", properties: ["Level Type": 2])
         // Show rewarded video pre-roll message and video ad at location MainMenu. See Chartboost.h for available location options.
-        //Chartboost.showRewardedVideo(CBLocationMainMenu)
-        /* called when game ends */
+        Chartboost.showInterstitial(CBLocationHomeScreen)
         if gameManager.highScore < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!
             partical.position.x = 0
@@ -61,6 +61,19 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             partical.numParticlesToEmit = 600
             addChild(partical)
             gameManager.highScore = score
+            let SquareMindMediumLevelHighScore = "SquareMindMediumLevelHighScore"
+            let sScore = GKScore(leaderboardIdentifier: SquareMindMediumLevelHighScore)
+            sScore.value = Int64(score)
+            
+            GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else {
+                    print("Score submitted")
+                    
+                }
+            })
+
         }
         if self.gameManager.mute == true {
             self.musicOn.hidden = true
@@ -214,8 +227,8 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             let scene = MainScene(fileNamed:"MainScene") as MainScene!
             scene.scaleMode = .AspectFill
             skView.showsPhysics = true
-            skView.showsDrawCount = true
-            skView.showsFPS = true
+            skView.showsDrawCount = false
+            skView.showsFPS = false
             skView.presentScene(scene)
         }
         
@@ -281,7 +294,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             self.gameState = .Pause
             self.scoreToHighScorePt1.hidden = false
             self.scoreToHighScorePt2.hidden = false
-            if self.gameManager.highScoreLevel1 < self.score {
+            if self.gameManager.highScore < self.score {
                 self.scoreToHighScorePt1.text = "Your score is \(self.score - self.gameManager.highScore)"
                 self.scoreToHighScorePt2.text = "above the preivios High Score!"
             } else {
@@ -499,7 +512,7 @@ class GameScene1: SKScene, SKPhysicsContactDelegate {
             colors[1] = SKColor(red: 252/255, green: 255/255, blue: 217/255, alpha: 1.0)
             colors[2] = SKColor(red: 239/255, green: 161/255, blue: 185/255, alpha: 1.0)
             colors[3] = SKColor(red: 152/255, green: 248/255, blue: 248/255, alpha: 1.0)
-            colors[4] = SKColor(red: 252/255, green:186/255, blue: 211/255, alpha: 1.0)
+            colors[4] = SKColor(red: 196/255, green: 242/255, blue: 200/255, alpha: 1.0)
         } else  {
             colors[0] = SKColor(red: 252/255, green: 255/255, blue: 217/255, alpha: 1.0)
             colors[1] = SKColor(red: 239/255, green: 161/255, blue: 185/255, alpha: 1.0)

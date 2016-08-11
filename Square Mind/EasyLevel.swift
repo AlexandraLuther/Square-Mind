@@ -8,6 +8,7 @@
 
 import SpriteKit
 import Mixpanel
+import GameKit
 
 enum EasyLevelState {
     case Active, GameOver, Pause
@@ -59,6 +60,19 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
             partical.numParticlesToEmit = 600
             addChild(partical)
             gameManager.highScoreLevel1 = score
+            let SquareMindEasyLevelHighScore = "SquareMindEasyLevelHighScore"
+            let sScore = GKScore(leaderboardIdentifier: SquareMindEasyLevelHighScore)
+            sScore.value = Int64(score)
+            
+            GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else {
+                    print("Score submitted")
+                    
+                }
+            })
+
         }
         if self.gameManager.mute == true {
             self.musicOn.hidden = true
@@ -89,6 +103,7 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position.y = 250
         endOfGameButtonRestart.hidden = false
         scrollSpeed = 0
+        Chartboost.showInterstitial(CBLocationHomeScreen)
     }
     
     
@@ -205,13 +220,12 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
     
     func homeButtonSelected() {
         homebutton.selectedHandler = {
-            
             let skView = self.view as SKView!
             let scene = MainScene(fileNamed:"MainScene") as MainScene!
             scene.scaleMode = .AspectFill
             skView.showsPhysics = true
-            skView.showsDrawCount = true
-            skView.showsFPS = true
+            skView.showsDrawCount = false
+            skView.showsFPS = false
             skView.presentScene(scene)
         }
         
