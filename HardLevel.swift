@@ -55,7 +55,6 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("Level Played", properties: ["Level Type": 3])
         // Show rewarded video pre-roll message and video ad at location MainMenu. See Chartboost.h for available location options.
-        Chartboost.showInterstitial(CBLocationHomeScreen)
         if gameManager.highScoreLevel3 < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!
             partical.position.x = 0
@@ -63,6 +62,7 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
             partical.numParticlesToEmit = 600
             addChild(partical)
             gameManager.highScoreLevel3 = score
+        
             let SquareMindHardLevelHighScore = "SquareMindHardLevelHighScore"
             let sScore = GKScore(leaderboardIdentifier: SquareMindHardLevelHighScore)
             sScore.value = Int64(score)
@@ -76,7 +76,10 @@ class HardLevel: SKScene, SKPhysicsContactDelegate {
                 }
             })
 
+        } else {
+            Chartboost.showInterstitial(CBLocationHomeScreen)
         }
+        
         
         if self.gameManager.mute == true {
             self.musicOn.hidden = true

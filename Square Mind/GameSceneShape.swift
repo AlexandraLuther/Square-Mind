@@ -51,7 +51,6 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
     func didBeginContact() {
         let mixpanel: Mixpanel = Mixpanel.sharedInstance()
         mixpanel.track("Level Played", properties: ["Level Type": 4])
-        Chartboost.showInterstitial(CBLocationHomeScreen)
         if gameManager.highScoreShape < score {
             let partical = SKEmitterNode(fileNamed: "beathighscore")!
             partical.position.x = 0
@@ -73,7 +72,10 @@ class GameSceneShape: SKScene, SKPhysicsContactDelegate {
                     }
                 })
             
+        } else {
+            Chartboost.showInterstitial(CBLocationHomeScreen)
         }
+        
         
         if self.gameManager.mute == true {
             self.musicOn.hidden = true

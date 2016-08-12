@@ -60,6 +60,7 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
             partical.numParticlesToEmit = 600
             addChild(partical)
             gameManager.highScoreLevel1 = score
+        
             let SquareMindEasyLevelHighScore = "SquareMindEasyLevelHighScore"
             let sScore = GKScore(leaderboardIdentifier: SquareMindEasyLevelHighScore)
             sScore.value = Int64(score)
@@ -73,7 +74,10 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
                 }
             })
 
+        } else {
+            Chartboost.showInterstitial(CBLocationHomeScreen)
         }
+        
         if self.gameManager.mute == true {
             self.musicOn.hidden = true
             self.musicOff.hidden = false
@@ -103,7 +107,6 @@ class EasyLevel: SKScene, SKPhysicsContactDelegate {
         scoreLabel.position.y = 250
         endOfGameButtonRestart.hidden = false
         scrollSpeed = 0
-        Chartboost.showInterstitial(CBLocationHomeScreen)
     }
     
     
